@@ -19,7 +19,7 @@ const TicketSchema = new mongoose.Schema({
     type: String,
     default: "New",
   },
-  priority:{
+  priority: {
     type: String,
     required: true,
   },
