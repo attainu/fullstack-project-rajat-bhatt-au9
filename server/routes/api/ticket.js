@@ -59,4 +59,61 @@ router.get("/", auth, async (req, res) => {
   }
 });
 
+//@route    GET api/ticket/:id
+//@desc     Get ticket by id
+//@access    Private
+router.get("/:id", auth, async (req, res) => {
+  try {
+    //post sorted by date post recent one first
+    const ticket = await Ticket.findById(req.params.id);
+
+    if (!ticket) {
+      return res.status(404).json({ msg: "Post not Found" });
+    }
+
+    res.json(ticket);
+  } catch (err) {
+    console.error(err.message);
+    if (err.kind === "ObjectId") {
+      return res.status(404).json({ msg: "Ticket not Found" });
+    }
+    res.status(500).send("Server Error");
+  }
+});
+
+//@route    POST api/ticket/conversation/:id
+//@desc     reply conversation on a ticket
+//@access    Private
+router.post(
+  "/conversation/:id",
+  [auth, [check("text", "Text is required").not().isEmpty()]],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    try {
+      //getting user from db without password
+      const user = await User.findById(req.user.id).select("-password");
+
+      const ticket = await Ticket.findById(req.params.id);
+
+      const newConversation = {
+        text: req.body.text,
+        name: user.name,
+        avatar: user.avatar,
+        user: req.user.id,
+      };
+      ticket.conversation.unshift(newConversation);
+      await ticket.save();
+
+      res.json(ticket.conversation);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send("Server Error");
+    }
+  }
+);
+
 module.exports = router;
