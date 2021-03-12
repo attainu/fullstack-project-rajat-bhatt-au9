@@ -7,6 +7,7 @@ import { Provider } from "react-redux";
 import store from "./store";
 
 import Dashboard from "./components/Dashboard";
+import CreateUser from "./components/CreateUser";
 import Login from "./components/Login";
 
 import "./App.css";
@@ -17,6 +18,8 @@ const App = () => (
       <Fragment>
         <Route exact path='/' component={Login} />
         <Route exact path='/dashboard' component={Dashboard} />
+
+        <Route exact path='/createUser' component={CreateUser} />
       </Fragment>
     </Router>
   </Provider>

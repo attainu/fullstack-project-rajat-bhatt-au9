@@ -1,7 +1,8 @@
 import React from "react";
 import "./login.css";
+import { connect } from "react-redux";
 
-const Login = () => {
+const Login = ({ login, isAuthenticated }) => {
   return (
     <div className='my-login-page'>
       <section className='h-100'>
