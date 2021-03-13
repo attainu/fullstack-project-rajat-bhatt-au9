@@ -1,82 +1,124 @@
-import React from "react";
+import React, { Fragment, useState } from "react";
+
+import { Link, Redirect } from "react-router-dom";
+import PropTypes from "prop-types";
+import Footer from "./Footer";
+import Alert from "./Alert";
 import "./login.css";
 import { connect } from "react-redux";
+import { login } from "../actions/auth";
 
 const Login = ({ login, isAuthenticated }) => {
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const { email, password } = formData;
+
+  const onChange = (e) =>
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    login(email, password);
+  };
+
+  //Redirect is logged in
+  if (isAuthenticated) {
+    return <Redirect to='/dashboard' />;
+  }
+
   return (
-    <div className='my-login-page'>
-      <section className='h-100'>
-        <div className='container h-100 '>
-          <div className='row justify-content-md-center h-100'>
-            <div className='card-wrapper'>
-              <div className='brand'>
-                <img
-                  src='https://cdn.onlinewebfonts.com/svg/img_311846.png'
-                  alt='logo'
-                />
-              </div>
-              <div className='card fat'>
-                <div className='card-body'>
-                  <h4 className='card-title'>Login</h4>
-                  <form
-                    method='POST'
-                    className='my-login-validation'
-                    novalidate=''
-                  >
-                    <div className='form-group mt-4'>
-                      <label for='email' className='mb-2'>
-                        E-Mail Address
-                      </label>
-                      <input
-                        id='email'
-                        type='email'
-                        className='form-control'
-                        name='email'
-                        value=''
-                        required
-                        autofocus
-                      />
-                      <div className='invalid-feedback'>Email is invalid</div>
-                    </div>
-
-                    <div className='form-group mt-4'>
-                      <label for='password' className='mb-2'>
-                        Password
-                      </label>
-
-                      <input
-                        id='password'
-                        type='password'
-                        className='form-control'
-                        name='password'
-                        required
-                        data-eye
-                      />
-                      <div className='invalid-feedback'>
-                        Password is required
-                      </div>
-                    </div>
-
-                    <div className='form-group mt-4'>
-                      <button type='submit' className='btn btn-primary btn-lg'>
-                        <a href='./dashboard.html'></a>Login
-                      </button>
-                    </div>
-                    <div className='mt-4 text-center'>
-                      Forgot Password? <a href='register.html'>Click Here</a>
-                    </div>
-                  </form>
+    <Fragment>
+      <div className='my-login-page'>
+        <section className='h-100'>
+          <div className='container h-100 '>
+            <div className='row justify-content-md-center h-100'>
+              <div className='card-wrapper'>
+                <div className='brand'>
+                  <img
+                    src='https://cdn.onlinewebfonts.com/svg/img_311846.png'
+                    alt='logo'
+                  />
                 </div>
-              </div>
-              <div className='footer'>
-                Copyright &copy; 2021 &mdash; CRM System
+                <div className='card fat'>
+                  <div className='card-body'>
+                    <h4 className='card-title'>Login</h4>
+                    <Alert />
+                    <form
+                      className='my-login-validation'
+                      onSubmit={(e) => onSubmit(e)}
+                    >
+                      <div className='form-group mt-4'>
+                        <label for='email' className='mb-2'>
+                          E-Mail Address
+                        </label>
+                        <input
+                          id='email'
+                          type='email'
+                          className='form-control'
+                          name='email'
+                          value={email}
+                          onChange={(e) => onChange(e)}
+                          required
+                          autofocus
+                        />
+                        <div className='invalid-feedback'>Email is invalid</div>
+                      </div>
+
+                      <div className='form-group mt-4'>
+                        <label for='password' className='mb-2'>
+                          Password
+                        </label>
+
+                        <input
+                          id='password'
+                          type='password'
+                          className='form-control'
+                          name='password'
+                          value={password}
+                          onChange={(e) => onChange(e)}
+                          minLength='6'
+                        />
+                        <div className='invalid-feedback'>
+                          Password is required
+                        </div>
+                      </div>
+
+                      <div className='form-group mt-4'>
+                        <button
+                          type='submit'
+                          className='btn btn-primary btn-lg'
+                        >
+                          Login
+                        </button>
+                      </div>
+                      <div className='mt-4 text-center'>
+                        Forgot Password? <a href='register.html'>Click Here</a>
+                      </div>
+                    </form>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
-    </div>
+        </section>
+      </div>
+      <Footer />
+    </Fragment>
   );
 };
 
-export default Login;
+Login.propTypes = {
+  login: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool,
+};
+
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+});
+
+export default connect(mapStateToProps, { login })(Login);
