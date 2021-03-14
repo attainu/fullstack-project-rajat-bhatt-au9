@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
@@ -6,23 +6,50 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "./store";
 
-import Dashboard from "./components/Dashboard";
-import CreateUser from "./components/CreateUser";
-import Login from "./components/Login";
+import AdminDashboard from "./components/dashboard/AdminDashboard";
+import CreateUser from "./components/auth/CreateUser";
+import Login from "./components/auth/Login";
+import ClientDashboard from "./components/dashboard/ClientDashboard";
+import Dashboard from "./components/dashboard/Dashboard";
+import PrivateRoute from "./components/routing/PrivateRoute";
 
 import "./App.css";
 
-const App = () => (
-  <Provider store={store}>
-    <Router>
-      <Fragment>
-        <Route exact path='/' component={Login} />
-        <Route exact path='/dashboard' component={Dashboard} />
+import { loadUser } from "./actions/auth";
+import setAuthToken from "./utils/setAuthToken";
 
-        <Route exact path='/createUser' component={CreateUser} />
-      </Fragment>
-    </Router>
-  </Provider>
-);
+if (localStorage.token) {
+  setAuthToken(localStorage.token);
+}
+
+const App = () => {
+  useEffect(() => {
+    store.dispatch(loadUser());
+  }, []);
+  return (
+    <Provider store={store}>
+      <Router>
+        <Fragment>
+          <Switch>
+            <Route exact path='/' component={Login} />
+            <PrivateRoute
+              exact
+              path='/admin-dashboard'
+              component={AdminDashboard}
+            />
+            <PrivateRoute exact path='/dashboard' component={Dashboard} />
+            <PrivateRoute
+              exact
+              path='/client-dashboard'
+              component={ClientDashboard}
+            />
+
+            <Route exact path='/create-user' component={CreateUser} />
+          </Switch>
+        </Fragment>
+      </Router>
+    </Provider>
+  );
+};
 
 export default App;

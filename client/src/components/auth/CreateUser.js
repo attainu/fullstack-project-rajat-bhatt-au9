@@ -1,10 +1,10 @@
 import React, { Fragment, useState } from "react";
 import "./createuser.css";
-import Navbar from "./Navbar";
-import Alert from "./Alert";
+import Navbar from "../layout/Navbar";
+import Alert from "../layout/Alert";
 import { connect } from "react-redux";
-import { setAlert } from "../actions/alert";
-import { createUser } from "../actions/auth";
+import { setAlert } from "../../actions/alert";
+import { createUser } from "../../actions/auth";
 
 import PropTypes from "prop-types";
 

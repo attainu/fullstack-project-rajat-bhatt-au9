@@ -2,11 +2,11 @@ import React, { Fragment, useState } from "react";
 
 import { Link, Redirect } from "react-router-dom";
 import PropTypes from "prop-types";
-import Footer from "./Footer";
-import Alert from "./Alert";
+import Footer from "../layout/Footer";
+import Alert from "../layout/Alert";
 import "./login.css";
 import { connect } from "react-redux";
-import { login } from "../actions/auth";
+import { login } from "../../actions/auth";
 
 const Login = ({ login, isAuthenticated }) => {
   const [formData, setFormData] = useState({
@@ -28,7 +28,7 @@ const Login = ({ login, isAuthenticated }) => {
 
   //Redirect is logged in
   if (isAuthenticated) {
-    return <Redirect to='/dashboard' />;
+    return <Redirect to='/admin-dashboard' />;
   }
 
   return (

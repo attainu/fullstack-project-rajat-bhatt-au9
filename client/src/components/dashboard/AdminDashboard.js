@@ -1,9 +1,9 @@
 import React from "react";
-import "./dashboard.css";
-import Footer from "./Footer";
-import Navbar from "./Navbar";
+import "./admindashboard.css";
+import Footer from "../layout/Footer";
+import Navbar from "../layout/Navbar";
 
-const Dashboard = () => (
+const AdminDashboard = () => (
   <div id='wrapper'>
     <div class='overlay'></div>
 
@@ -232,4 +232,4 @@ const Dashboard = () => (
   </div>
 );
 
-export default Dashboard;
+export default AdminDashboard;
