@@ -8,7 +8,7 @@ const config = require("config");
 const jwt = require("jsonwebtoken");
 const { check, validationResult } = require("express-validator");
 
-//@route    GET api/auth 
+//@route    GET api/auth
 //@desc     Get user by token
 //@access   Private
 router.get("/", auth, async (req, res) => {
