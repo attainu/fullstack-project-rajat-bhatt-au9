@@ -10,7 +10,7 @@ import AdminDashboard from "./components/dashboard/AdminDashboard";
 import CreateUser from "./components/auth/CreateUser";
 import Login from "./components/auth/Login";
 import ClientDashboard from "./components/dashboard/ClientDashboard";
-import TicketListing from "./components/ticket/TicketListing";
+import TicketPage from "./components/ticket/TicketPage";
 import PrivateRoute from "./components/routing/PrivateRoute";
 import UserPage from "./components/user/UserPage";
 import "./App.css";
@@ -34,7 +34,7 @@ const App = () => {
             <Route exact path='/' component={Login} />
 
             <PrivateRoute path='/admin-dashboard' component={AdminDashboard} />
-            <PrivateRoute exact path='/ticket' component={TicketListing} />
+            <PrivateRoute exact path='/ticket' component={TicketPage} />
             <PrivateRoute
               path='/client-dashboard'
               component={ClientDashboard}

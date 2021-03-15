@@ -8,7 +8,7 @@ import {connect} from 'react-redux';
 import PropTypes from "prop-types";
 import UserList from './UserList'
 
-const UserDashboard = ({getUsers, user: { users, loading }}) => {
+const UserPage = ({getUsers, user: { users, loading }}) => {
 
 
   useEffect(() => {
@@ -117,7 +117,7 @@ const UserDashboard = ({getUsers, user: { users, loading }}) => {
   );
 };
 
-UserDashboard.propTypes = {
+UserPage.propTypes = {
   getUsers: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired,
 };
@@ -126,4 +126,4 @@ const mapStateToProps = (state) => ({
   user: state.user,
 });
 
-export default connect(mapStateToProps, {getUsers})( UserDashboard);
+export default connect(mapStateToProps, {getUsers})( UserPage);
