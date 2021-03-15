@@ -9,6 +9,9 @@ const TicketSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  email: {
+    type: String,
+  },
   name: {
     type: String,
   },
@@ -23,6 +26,15 @@ const TicketSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  req_category: {
+    type: String,
+    required: true,
+  },
+  desc: {
+    type: String,
+    required: true,
+  },
+
   conversation: [
     {
       user: {
