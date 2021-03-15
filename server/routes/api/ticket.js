@@ -51,8 +51,8 @@ router.post(
 router.get("/", auth, async (req, res) => {
   try {
     //tickets sorted by date tickets recent one first
-    const tickets = await Ticket.find().sort({ date: -1 });
-    res.json(tickets);
+    const ticket = await Ticket.find().sort({ date: -1 });
+    res.json(ticket);
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error");

@@ -9,3 +9,5 @@ export const AUTH_ERROR = "AUTH_ERROR";
 export const GET_USERS = "GET_USERS";
 export const GET_USERS_ERROR = "GET_USERS_ERROR";
 export const LOGOUT = "LOGOUT";
+export const GET_TICKETS = "GET_TICKETS";
+export const GET_TICKETS_ERROR = "GET_TICKETS_ERROR";
