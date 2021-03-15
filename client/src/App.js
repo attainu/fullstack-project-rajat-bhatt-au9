@@ -10,7 +10,7 @@ import AdminDashboard from "./components/dashboard/AdminDashboard";
 import CreateUser from "./components/auth/CreateUser";
 import Login from "./components/auth/Login";
 import ClientDashboard from "./components/dashboard/ClientDashboard";
-import Dashboard from "./components/dashboard/Dashboard";
+
 import PrivateRoute from "./components/routing/PrivateRoute";
 
 import "./App.css";
@@ -32,19 +32,15 @@ const App = () => {
         <Fragment>
           <Switch>
             <Route exact path='/' component={Login} />
+
+            <PrivateRoute path='/admin-dashboard' component={AdminDashboard} />
+
             <PrivateRoute
-              exact
-              path='/admin-dashboard'
-              component={AdminDashboard}
-            />
-            <PrivateRoute exact path='/dashboard' component={Dashboard} />
-            <PrivateRoute
-              exact
               path='/client-dashboard'
               component={ClientDashboard}
             />
 
-            <Route exact path='/create-user' component={CreateUser} />
+            <Route path='/create-user' component={CreateUser} />
           </Switch>
         </Fragment>
       </Router>

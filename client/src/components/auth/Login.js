@@ -8,7 +8,7 @@ import "./login.css";
 import { connect } from "react-redux";
 import { login } from "../../actions/auth";
 
-const Login = ({ login, isAuthenticated }) => {
+const Login = ({ login, isAuthenticated, user }) => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -26,9 +26,12 @@ const Login = ({ login, isAuthenticated }) => {
     login(email, password);
   };
 
-  //Redirect is logged in
+  //Redirect if logged in
   if (isAuthenticated) {
-    return <Redirect to='/admin-dashboard' />;
+    if (user.role === "Admin") return <Redirect to='/admin-dashboard' />;
+    else {
+      return <Redirect to='/client-dashboard' />;
+    }
   }
 
   return (
@@ -119,6 +122,7 @@ Login.propTypes = {
 
 const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
+  user: state.auth.user,
 });
 
 export default connect(mapStateToProps, { login })(Login);
