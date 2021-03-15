@@ -2,8 +2,10 @@ import React from "react";
 import "./admindashboard.css";
 import Footer from "../layout/Footer";
 import Navbar from "../layout/Navbar";
+import Profile from "./Profile";
+import { connect } from "react-redux";
 
-const AdminDashboard = () => (
+const AdminDashboard = ({ user, isAuthenticated }) => (
   <div id='wrapper'>
     <div class='overlay'></div>
 
@@ -28,6 +30,7 @@ const AdminDashboard = () => (
                 </div>
               </div>
               {/* vhjgjhd */}
+              <Profile user={user} />
               <div class='col-md-12'>
                 <div class='row'>
                   <div class='col-sm-3'>
@@ -232,4 +235,8 @@ const AdminDashboard = () => (
   </div>
 );
 
-export default AdminDashboard;
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+  user: state.auth.user,
+});
+export default connect(mapStateToProps)(AdminDashboard);
