@@ -29,12 +29,12 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => (
             </Link>
           </li>
           <li className='nav-item'>
-            <Link className='nav-link' to='/client-dashboard'>
+            <Link className='nav-link' to='/user-page'>
               Client
             </Link>
           </li>
           <li className='nav-item'>
-            <Link className='nav-link' to='/dashboard'>
+            <Link className='nav-link' to='/ticket'>
               Ticket
             </Link>
           </li>

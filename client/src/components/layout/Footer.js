@@ -10,7 +10,7 @@ const Footer = () => (
             <a href='index.html' class='text-muted'>
               <strong>CRM ticket System </strong>
             </a>{" "}
-            &copy
+            &copy;
           </p>
         </div>
         <div class='col-6 text-right'>

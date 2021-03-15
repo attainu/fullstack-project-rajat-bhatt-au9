@@ -5,6 +5,7 @@ const config = require("config");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const gravatar = require("gravatar");
+const auth = require("../../middleware/auth");
 
 const User = require("../../models/User");
 //@route        POST api/user
@@ -67,5 +68,18 @@ router.post(
     }
   }
 );
+
+//@route    GET api/users/allusers
+//@description  Get all users
+//@access   Private
+router.get("/allusers",auth, async (req, res) => {
+  try {
+    const user = await User.find().select("-password");
+    res.json(user);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
 
 module.exports = router;
