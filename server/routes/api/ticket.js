@@ -16,6 +16,8 @@ router.post(
     [
       check("ticket_issue", "Ticket Issue is required").not().isEmpty(),
       check("priority", "Priority is required").not().isEmpty(),
+      check("desc", "Description is required").not().isEmpty(),
+      check("req_category", "req_category is required").not().isEmpty(),
     ],
   ],
   async (req, res) => {
@@ -31,9 +33,12 @@ router.post(
       const newTicket = new Ticket({
         ticket_issue: req.body.ticket_issue,
         name: user.name,
+        email: user.email,
         avatar: user.avatar,
         user: req.user.id,
         priority: req.body.priority,
+        desc: req.body.desc,
+        req_category: req.body.req_category,
       });
       const ticket = await newTicket.save();
 
