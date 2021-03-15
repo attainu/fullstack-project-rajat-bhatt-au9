@@ -1,17 +1,24 @@
-import React, { useEffect } from "react";
+import React, { Fragment, useEffect } from "react";
 import { connect } from "react-redux";
 import { getTickets } from "../../actions/ticket";
 import { Link } from "react-router-dom";
 import Footer from "../layout/Footer";
 import Navbar from "../layout/Navbar";
 import TicketList from "./TicketList";
+import Spinner from "../layout/Spinner";
 
 const TicketPage = ({ getTickets, ticket: { tickets, loading } }) => {
   useEffect(() => {
     getTickets();
   }, [getTickets]);
 
-  return (
+  return loading && tickets === null ? (
+    <Fragment>
+      <Navbar />
+      <Spinner />
+      <Footer />
+    </Fragment>
+  ) : (
     <div id='wrapper'>
       <div className='overlay'></div>
 
@@ -50,7 +57,7 @@ const TicketPage = ({ getTickets, ticket: { tickets, loading } }) => {
                           </h1>
                           <div className='mb-1'>
                             {/* <span className="text-danger"> <a href="#"></a><i className="mdi mdi-arrow-bottom-right">Go to Client</i></a> </span>
-                                          <span className="text-muted">Since last week</span> */}
+                                        <span className="text-muted">Since last week</span> */}
                             <span className='text-danger'>
                               <i className='mdi mdi-arrow-bottom-right'>
                                 Go to Tickets

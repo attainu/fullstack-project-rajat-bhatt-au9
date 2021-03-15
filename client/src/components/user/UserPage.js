@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { Fragment, useEffect } from "react";
 import Footer from "../layout/Footer";
 import Navbar from "../layout/Navbar";
 import "./userpage.css";
@@ -7,12 +7,20 @@ import { getUsers } from "../../actions/user";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import UserList from "./UserList";
+import Spinner from "../layout/Spinner";
 
 const UserPage = ({ getUsers, user: { users, loading } }) => {
   useEffect(() => {
     getUsers();
   }, [getUsers]);
-  return (
+
+  return loading && users === null ? (
+    <Fragment>
+      <Navbar />
+      <Spinner />
+      <Footer />
+    </Fragment>
+  ) : (
     <div id='wrapper'>
       <div className='overlay'></div>
 
