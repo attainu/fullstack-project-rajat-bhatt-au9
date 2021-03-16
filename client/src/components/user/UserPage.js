@@ -39,7 +39,7 @@ const UserPage = ({ getUsers, user: { users, loading } }) => {
                       to='/create-user'
                       className='d-sm-inline-block btn btn-sm btn-primary shadow-sm'
                     >
-                      <i className='fas fa-download fa-sm text-white-50'></i>
+                      
                       <i class='fas fa-plus'></i>
                       Add New User
                     </Link>
