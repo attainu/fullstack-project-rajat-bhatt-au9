@@ -31,11 +31,11 @@ router.post(
       const user = await User.findById(req.user.id).select("-password");
 
       const newTicket = new Ticket({
-        ticket_issue: req.body.ticket_issue,
         name: user.name,
         email: user.email,
         avatar: user.avatar,
         user: req.user.id,
+        ticket_issue: req.body.ticket_issue,
         priority: req.body.priority,
         desc: req.body.desc,
         req_category: req.body.req_category,

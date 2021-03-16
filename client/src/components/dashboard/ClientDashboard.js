@@ -1,5 +1,5 @@
 import React from "react";
-import "./ClientDashboard.css";
+import "./admindashboard.css";
 import Footer from "../layout/Footer";
 import Navbar from "../layout/Navbar";
 import Profile from "./Profile";
@@ -25,20 +25,18 @@ const ClientDashboard = ({ user, isAuthenticated }) => {
                 <div className='col-md-12 mt-lg-4 mt-4'>
                   <div className='d-sm-flex align-items-center justify-content-between mb-4'>
                     <h1 className='h3 mb-0 text-gray-800'>Dashboard</h1>
-                    <Link to="/ticket"
+                    <Link
+                      to='/ticket'
                       className='d-sm-inline-block btn btn-sm btn-primary shadow-sm'
                     >
                       <i className='fas fa-download fa-sm text-white-50'></i>
                       View Ticket Lists
                     </Link>
-                    
                   </div>
                 </div>
 
-               
                 {/* vhjgjhd */}
                 <Profile user={user} />
-
 
                 {/* vhjgjhd */}
               </div>

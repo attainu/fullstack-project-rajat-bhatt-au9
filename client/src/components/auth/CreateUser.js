@@ -1,10 +1,12 @@
 import React, { Fragment, useState } from "react";
 import "./createuser.css";
 import Navbar from "../layout/Navbar";
+import Footer from "../layout/Footer";
 import Alert from "../layout/Alert";
 import { connect } from "react-redux";
 import { setAlert } from "../../actions/alert";
 import { createUser } from "../../actions/auth";
+import { useHistory } from "react-router-dom";
 
 import PropTypes from "prop-types";
 
@@ -18,12 +20,22 @@ const CreateUser = ({ setAlert, createUser }) => {
   });
 
   const { name, email, password, password2, role } = formData;
+  let history = useHistory();
   const onChange = (e) =>
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
-
+  const handleReset = () => {
+    setFormData({
+      name: "",
+      email: "",
+      password: "",
+      passowrd2: "",
+      role: "Admin",
+    });
+    history.push("/user-page");
+  };
   const onSubmit = async (e) => {
     e.preventDefault();
     if (password !== password2) {
@@ -31,6 +43,7 @@ const CreateUser = ({ setAlert, createUser }) => {
     } else {
       //console.log("Success");
       createUser({ name, email, password, role });
+      handleReset();
     }
   };
 
@@ -42,7 +55,7 @@ const CreateUser = ({ setAlert, createUser }) => {
         <div className='form-title-row'>
           <h1>Add User</h1>
         </div>
-        <Alert />
+
         <div className='form-row'>
           <label>
             <span>Full name</span>
@@ -105,6 +118,7 @@ const CreateUser = ({ setAlert, createUser }) => {
           <button type='submit'>Submit Form</button>
         </div>
       </form>
+      <Footer />
     </Fragment>
   );
 };

@@ -5,67 +5,74 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import "./navbar.css";
 
-const Navbar = ({ auth: { isAuthenticated, loading ,user}, logout }) =>{
-
+const Navbar = ({ auth: { isAuthenticated, loading, user }, logout }) => {
   const client_links = (
-    <nav class="navbar bg-dark">
-    
-      <p><Link to='/admin-dashboard'><i class="fas fa-user"></i> CRM Ticket System</Link></p>
-    <ul>
-    <li>
-      <Link className='nav-link' to='/client-dashboard'>Dashboard</Link>
+    <nav class='navbar bg-dark'>
+      <p>
+        <Link to='/client-dashboard'>
+          <i class='fas fa-user'></i> CRM Ticket System
+        </Link>
+      </p>
+      <ul>
+        <li>
+          <Link className='nav-link' to='/client-dashboard'>
+            Dashboard
+          </Link>
         </li>
         <li>
-            <Link className='nav-link' to='/ticket'>
-              Ticket
-            </Link>
-          </li>
-          <li>
-            <Link className='nav-link' to='#' onClick={logout}><i class="fas fa-sign-out-alt"></i>
-             Logout
-            </Link>
+          <Link className='nav-link' to='/ticket'>
+            Ticket
+          </Link>
         </li>
-    </ul>
+        <li>
+          <Link className='nav-link' to='#' onClick={logout}>
+            <i class='fas fa-sign-out-alt'></i>
+            Logout
+          </Link>
+        </li>
+      </ul>
     </nav>
   );
 
-  const admin_links =(
-    <nav class="navbar bg-dark">
-    
-      <p><Link to='/client-dashboard'><i class="fas fa-user"></i> CRM Ticket System</Link></p>
-    <ul>
-  <li>
-  <Link className='nav-link' to='/admin-dashboard'>  <i className="fas fa-user"></i> <span >Dashboards</span> </Link>
-  </li>
-  <li>
-            <Link className='nav-link' to='/user-page'>
-        <span> Client </span>
-            </Link>
+  const admin_links = (
+    <nav class='navbar bg-dark'>
+      <p>
+        <Link to='/admin-dashboard'>
+          <i class='fas fa-user'></i> CRM Ticket System
+        </Link>
+      </p>
+      <ul>
+        <li>
+          <Link className='nav-link' to='/admin-dashboard'>
+            <span>Dashboard</span>
+          </Link>
         </li>
-        
-       <li>
-            <Link className='nav-link' to='/ticket'>
-              Ticket
-            </Link>
-          </li>
+        <li>
+          <Link className='nav-link' to='/user-page'>
+            <span> Client </span>
+          </Link>
+        </li>
 
-         <li>
-            <Link className='nav-link' to='#' onClick={logout}><i class="fas fa-sign-out-alt"></i>
-             Logout
-            </Link>
+        <li>
+          <Link className='nav-link' to='/ticket'>
+            Ticket
+          </Link>
         </li>
-    </ul>
+
+        <li>
+          <Link className='nav-link' to='#' onClick={logout}>
+            <i class='fas fa-sign-out-alt'></i>
+            Logout
+          </Link>
+        </li>
+      </ul>
     </nav>
   );
 
   return (
-    <Fragment>
-
-      {user.role ==="Admin" ? admin_links : client_links}
-      
-  </Fragment>
-  )
-} 
+    <Fragment>{user.role === "Admin" ? admin_links : client_links}</Fragment>
+  );
+};
 
 Navbar.propsTypes = {
   logout: PropTypes.func.isRequired,
@@ -74,7 +81,7 @@ Navbar.propsTypes = {
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
-  user: state.auth.user
+  user: state.auth.user,
 });
 
 export default connect(mapStateToProps, { logout })(Navbar);

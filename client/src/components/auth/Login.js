@@ -43,7 +43,7 @@ const Login = ({ login, isAuthenticated, user }) => {
               <div className='card-wrapper'>
                 <div className='brand'>
                   <img
-                    src='https://cdn.onlinewebfonts.com/svg/img_311846.png'
+                    src='https://cdn3.iconfinder.com/data/icons/e-commerce-and-online-shopping/64/__account_male-512.png'
                     alt='logo'
                   />
                 </div>

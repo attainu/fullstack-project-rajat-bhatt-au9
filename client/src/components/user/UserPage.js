@@ -7,6 +7,7 @@ import { getUsers } from "../../actions/user";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import UserList from "./UserList";
+import Alert from "../layout/Alert";
 import Spinner from "../layout/Spinner";
 
 const UserPage = ({ getUsers, user: { users, loading } }) => {
@@ -39,13 +40,13 @@ const UserPage = ({ getUsers, user: { users, loading } }) => {
                       to='/create-user'
                       className='d-sm-inline-block btn btn-sm btn-primary shadow-sm'
                     >
-                      
                       <i class='fas fa-plus'></i>
                       Add New User
                     </Link>
                   </div>
                 </div>
                 {/* vhjgjhd */}
+                <Alert />
                 <div className='col-md-12'>
                   <div className='row'>
                     <div className='col-sm-3'>

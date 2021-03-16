@@ -6,8 +6,14 @@ import Footer from "../layout/Footer";
 import Navbar from "../layout/Navbar";
 import TicketList from "./TicketList";
 import Spinner from "../layout/Spinner";
+import Alert from "../layout/Alert";
 
-const TicketPage = ({ getTickets, ticket: { tickets, loading } }) => {
+const TicketPage = ({
+  isAuthenticated,
+  user,
+  getTickets,
+  ticket: { tickets, loading },
+}) => {
   useEffect(() => {
     getTickets();
   }, [getTickets]);
@@ -33,15 +39,18 @@ const TicketPage = ({ getTickets, ticket: { tickets, loading } }) => {
                 <div className='col-md-12 mt-lg-4 mt-4'>
                   <div className='d-sm-flex align-items-center justify-content-between mb-4'>
                     <h1 className='h3 mb-0 text-gray-800'> Tickets </h1>
-                    <Link
-                      to='#'
-                      className='d-sm-inline-block btn btn-sm btn-primary shadow-sm'
-                    >
-                      <i class='fas fa-plus'></i> 
-                      Create New Ticket
-                    </Link>
+                    {user.role === "Client" ? (
+                      <Link
+                        to='/create-ticket'
+                        className='d-sm-inline-block btn btn-sm btn-primary shadow-sm'
+                      >
+                        <i class='fas fa-plus'></i>
+                        Create New Ticket
+                      </Link>
+                    ) : null}
                   </div>
                 </div>
+                <Alert />
                 {/* vhjgjhd */}
                 <div className='col-md-12'>
                   <div className='row'>
@@ -95,8 +104,11 @@ const TicketPage = ({ getTickets, ticket: { tickets, loading } }) => {
                           <thead>
                             <tr className='bg-light'>
                               <th className='border-top-0'>Name</th>
+                              <th className='border-top-0'>Email</th>
                               <th className='border-top-0'>Ticket Issues</th>
                               <th className='border-top-0'>Priority</th>
+                              <th className='border-top-0'>Description</th>
+                              <th className='border-top-0'>Request Category</th>
                               <th className='border-top-0'>Status</th>
                             </tr>
                           </thead>
@@ -126,6 +138,8 @@ const TicketPage = ({ getTickets, ticket: { tickets, loading } }) => {
 
 const mapStateToProps = (state) => ({
   ticket: state.ticket,
+  isAuthenticated: state.auth.isAuthenticated,
+  user: state.auth.user,
 });
 
 export default connect(mapStateToProps, { getTickets })(TicketPage);
