@@ -4,7 +4,7 @@ import { logout } from "../../actions/auth";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
-const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => (
+const Navbar = ({ auth: { isAuthenticated, loading ,user}, logout }) => (
   <Fragment>
     <nav className='navbar navbar-expand-lg navbar-dark bg-dark'>
       <Link className='navbar-brand' to='/admin-dashboard'>
@@ -24,13 +24,14 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => (
       <div className='collapse navbar-collapse ' id='navbarSupportedContent'>
         <ul className='nav navbar-nav'>
           <li className='nav-item active'>
-            <Link className='nav-link' to='/admin-dashboard'>
-              Dashboard
-            </Link>
+          {user.role === 'Admin' ? 
+          <Link className='nav-link' to='/admin-dashboard'>Dashboard</Link>
+          : <Link className='nav-link' to='/client-dashboard'>Dashboard</Link>}
+            
           </li>
           <li className='nav-item'>
             <Link className='nav-link' to='/user-page'>
-              Client
+            {user.role === 'Admin' ? <span> Client </span> : null }
             </Link>
           </li>
           <li className='nav-item'>
@@ -56,6 +57,7 @@ Navbar.propsTypes = {
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
+  user: state.auth.user
 });
 
 export default connect(mapStateToProps, { logout })(Navbar);
