@@ -10,7 +10,7 @@ import { useHistory } from "react-router-dom";
 
 import PropTypes from "prop-types";
 
-const CreateUser = ({ setAlert, createUser }) => {
+const CreateUser = ({ user, setAlert, createUser }) => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -55,7 +55,7 @@ const CreateUser = ({ setAlert, createUser }) => {
         <div className='form-title-row'>
           <h1>Add User</h1>
         </div>
-
+        <Alert />
         <div className='form-row'>
           <label>
             <span>Full name</span>
@@ -127,5 +127,9 @@ CreateUser.propTypes = {
   setAlert: PropTypes.func.isRequired,
   createUser: PropTypes.func.isRequired,
 };
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+  user: state.auth.user,
+});
 
-export default connect(null, { setAlert, createUser })(CreateUser);
+export default connect(mapStateToProps, { setAlert, createUser })(CreateUser);
