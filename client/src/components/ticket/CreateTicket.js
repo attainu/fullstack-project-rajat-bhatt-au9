@@ -8,7 +8,6 @@ import { setAlert } from "../../actions/alert";
 import { createTicket } from "../../actions/ticket";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-import { useHistory } from "react-router";
 
 const CreateTicket = ({ createTicket }) => {
   const [formData, setFormData] = useState({
@@ -19,7 +18,6 @@ const CreateTicket = ({ createTicket }) => {
   });
 
   const { ticket_issue, priority, req_category, desc } = formData;
-  let history = useHistory();
   const onChange = (e) =>
     setFormData({
       ...formData,
