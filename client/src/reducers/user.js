@@ -1,8 +1,14 @@
-import {GET_USERS, GET_USERS_ERROR} from '../actions/types'
+import {GET_USERS, 
+GET_USERS_ERROR,
+PUT_EDIT_PROFILE, 
+PUT_EDIT_PROFILE_ERROR} from '../actions/types'
+
 
 const initialState = {
     users: [],
     user: null,
+    editprofiles: [],
+    editprofile: null,
     loading: true,
     error: {},
   };
@@ -23,6 +29,20 @@ const initialState = {
         error: payload,
         loading: false,
       };
+
+      case PUT_EDIT_PROFILE:
+      return {
+        ...state,
+        editprofiles:payload,
+        loading: false,
+      };
+    case PUT_EDIT_PROFILE_ERROR:
+      return {
+        ...state,
+        error: payload,
+        loading: false,
+      };
+
     default:
       return state;
   }

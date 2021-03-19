@@ -1,5 +1,6 @@
 import React from "react";
 import "./profile.css";
+import { Link } from "react-router-dom";
 import Moment from "react-moment";
 const Profile = ({ user }) => {
   return (
@@ -13,12 +14,12 @@ const Profile = ({ user }) => {
                   <div className='col-sm-4 bg-c-lite-green user-profile'>
                     <div className='card-block text-center text-white'>
                       <div className='m-b-25'>
-                        {" "}
+                    
                         <img
                           src={user.avatar}
                           className='img-radius'
-                          alt='User-Profile-Image'
-                        />{" "}
+                          alt='User-avatar'
+                        />
                       </div>
                       <h6 className='f-w-600'>{user.name}</h6>
 
@@ -48,10 +49,19 @@ const Profile = ({ user }) => {
                         </div>
                         <div className='col-sm-6'>
                           <p className='m-b-10 f-w-600'>Active From</p>
-                          <h6 className='text-muted f-w-400'>
+                            <h6 className='text-muted f-w-400'>
                             <Moment format='DD/MM/YYYY'>{user.date}</Moment>
                           </h6>
-                        </div>
+                        </div> 
+                      <div className="editprofile">
+                          <Link to='/edit-profile'
+                          className='d-sm-inline-block btn btn-sm btn-primary shadow-sm'>
+                         <i class="fa fa-check" aria-hidden="true"></i>
+                            Edit Profile
+                          </Link> 
+                      </div>
+                        
+                      
                       </div>
                     </div>
                   </div>

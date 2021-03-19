@@ -1,8 +1,15 @@
 import axios from "axios";
-import {GET_USERS, GET_USERS_ERROR} from './types';
+import {
+  GET_USERS, 
+  GET_USERS_ERROR,
+  PUT_EDIT_PROFILE, 
+  PUT_EDIT_PROFILE_ERROR
 
+} from './types';
 
+import { setAlert } from "./alert";
 
+//Get User
 export const getUsers = () => async (dispatch) => {
   
     try {
@@ -22,3 +29,37 @@ export const getUsers = () => async (dispatch) => {
       });
     }
   };
+
+ // Edit User Profile
+  export const editProfile = (userId, { name, avatar, password }) => async (dispatch) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+
+  const body = JSON.stringify({ name, avatar, password });
+
+  try {
+    const res = await axios.put(
+      `http://localhost:5000/api/users/editprofile/${userId}`,
+      body,
+      config
+    );
+    dispatch({
+      type: PUT_EDIT_PROFILE,
+      payload: res.data,
+    });
+    dispatch(setAlert("User updated Successfully", "success"));
+  } catch (err) {
+    const errors = err.response.data.errors;
+
+    if (errors) {
+      errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
+    }
+
+    dispatch({
+      type: PUT_EDIT_PROFILE_ERROR,
+    });
+  }
+};
