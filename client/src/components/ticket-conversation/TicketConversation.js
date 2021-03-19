@@ -7,6 +7,7 @@ import Spinner from "../layout/Spinner";
 import ReplyForm from "./ReplyForm";
 import ListConversation from "./ListConversation";
 import TicketDetail from "./TicketDetail";
+import Alert from "../layout/Alert";
 import "./convo.css";
 
 import { getTicket } from "../../actions/ticket";
@@ -27,7 +28,7 @@ const TicketConversation = ({
       <Navbar />
 
       <TicketDetail ticket={ticket} />
-
+      <Alert />
       <div class='comment_block'>
         <ReplyForm ticketId={ticket._id} />
 

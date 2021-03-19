@@ -13,7 +13,7 @@ const ListConversation = ({
     <div class='new_comment'>
       <ul class='user_comment'>
         <div class='user_avatar'>
-          <img src={avatar} />
+          <img src={avatar} alt='user-avatar' />
         </div>
         <div class='comment_body'>
           <p>{text}</p>

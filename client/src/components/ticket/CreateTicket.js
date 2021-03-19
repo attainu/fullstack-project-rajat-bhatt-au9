@@ -6,7 +6,7 @@ import Footer from "../layout/Footer";
 
 import { setAlert } from "../../actions/alert";
 import { createTicket } from "../../actions/ticket";
-
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { useHistory } from "react-router";
 
@@ -32,7 +32,6 @@ const CreateTicket = ({ createTicket }) => {
       req_category: "Desktop/Laptop related issue",
       desc: "",
     });
-    history.push("/ticket");
   };
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -43,6 +42,8 @@ const CreateTicket = ({ createTicket }) => {
   return (
     <Fragment>
       <Navbar />
+
+      <Link to='/ticket'>go back </Link>
       <form class='form-basic' onSubmit={(e) => onSubmit(e)}>
         <div class='form-title-row'>
           <h1>Create Ticket</h1>

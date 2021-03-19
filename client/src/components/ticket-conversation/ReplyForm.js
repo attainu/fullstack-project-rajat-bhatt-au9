@@ -10,7 +10,7 @@ const ReplyForm = ({ user, ticketId, addReply }) => {
   return (
     <div class='create_new_comment'>
       <div class='user_avatar'>
-        <img src={user.avatar} />
+        <img src={user.avatar} alt='user_avatar' />
       </div>
       <div class='input_comment'>
         <form

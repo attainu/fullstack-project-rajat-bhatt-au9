@@ -53,7 +53,7 @@ export default function (state = initialState, action) {
     case ADD_REPLY:
       return {
         ...state,
-        ticket: { ...state.ticket, reply: payload },
+        ticket: { ...state.ticket, conversation: payload },
         loading: false,
       };
     default:

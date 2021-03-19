@@ -113,9 +113,20 @@ const TicketPage = ({
                             </tr>
                           </thead>
                           <tbody>
-                            {tickets.map((ticket) => (
-                              <TicketList key={ticket.id} ticket={ticket} />
-                            ))}
+                            {user.role === "Client"
+                              ? tickets
+                                  .filter(
+                                    (ticket) => ticket.email === user.email
+                                  )
+                                  .map((filteredTicket) => (
+                                    <TicketList
+                                      key={filteredTicket.id}
+                                      ticket={filteredTicket}
+                                    />
+                                  ))
+                              : tickets.map((ticket) => (
+                                  <TicketList key={ticket.id} ticket={ticket} />
+                                ))}
                           </tbody>
                         </table>
                       </div>
