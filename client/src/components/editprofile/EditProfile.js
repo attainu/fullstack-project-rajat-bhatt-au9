@@ -39,14 +39,12 @@ const EditProfile = ({ user,editProfile }) => {
     if (password !== password2) {
       setAlert("Password do not match", "danger");
     } else {
-      //console.log("Success");
-      alert("Updated Profile Successfully");
       editProfile(user._id,{ name, avatar:image, password});
       handleReset();
     }
   };
 
-// cloudinary code
+// cloudinary portion
     const[ loading,setLoading ] = useState(false)
     const[ image,setImage ] = useState("")
 
