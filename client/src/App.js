@@ -15,6 +15,7 @@ import PrivateRoute from "./components/routing/PrivateRoute";
 import UserPage from "./components/user/UserPage";
 import CreateTicket from "./components/ticket/CreateTicket";
 import EditProfile from "./components/editprofile/EditProfile";
+import TicketConversation from "./components/ticket-conversation/TicketConversation";
 
 import "./App.css";
 
@@ -38,6 +39,11 @@ const App = () => {
 
             <PrivateRoute path='/admin-dashboard' component={AdminDashboard} />
             <PrivateRoute exact path='/ticket' component={TicketPage} />
+            <PrivateRoute
+              exact
+              path='/ticket/:id'
+              component={TicketConversation}
+            />
             <PrivateRoute
               path='/client-dashboard'
               component={ClientDashboard}

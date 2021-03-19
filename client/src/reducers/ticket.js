@@ -3,6 +3,9 @@ import {
   GET_TICKETS_ERROR,
   CREATE_TICKET_FAIL,
   CREATE_TICKET_SUCCESS,
+  TICKET_ERROR,
+  GET_TICKET,
+  ADD_REPLY,
 } from "../actions/types";
 
 const initialState = {
@@ -35,9 +38,22 @@ export default function (state = initialState, action) {
         loading: false,
       };
     case GET_TICKETS_ERROR:
+    case TICKET_ERROR:
       return {
         ...state,
         error: payload,
+        loading: false,
+      };
+    case GET_TICKET:
+      return {
+        ...state,
+        ticket: payload,
+        loading: false,
+      };
+    case ADD_REPLY:
+      return {
+        ...state,
+        ticket: { ...state.ticket, reply: payload },
         loading: false,
       };
     default:

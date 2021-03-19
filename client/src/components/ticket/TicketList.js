@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const TicketList = ({ ticket }) => {
   return (
@@ -14,7 +15,9 @@ const TicketList = ({ ticket }) => {
         </div>
       </td>
       <td>{ticket.email}</td>
-      <td>{ticket.ticket_issue}</td>
+      <td>
+        <Link to={`/ticket/${ticket._id}`}>{ticket.ticket_issue}</Link>
+      </td>
       <td>{ticket.priority}</td>
       <td>{ticket.desc}</td>
       <td>{ticket.req_category}</td>
