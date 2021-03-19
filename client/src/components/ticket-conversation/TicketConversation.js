@@ -14,6 +14,7 @@ import { getTicket } from "../../actions/ticket";
 
 const TicketConversation = ({
   getTicket,
+  user,
   ticket: { ticket, loading },
   match,
 }) => {
@@ -27,10 +28,12 @@ const TicketConversation = ({
     <div>
       <Navbar />
 
-      <TicketDetail ticket={ticket} />
+      <TicketDetail ticket={ticket} user={user} />
       <Alert />
       <div class='comment_block'>
-        <ReplyForm ticketId={ticket._id} />
+        {ticket.status === "Resolved" ? null : (
+          <ReplyForm ticketId={ticket._id} />
+        )}
 
         {ticket.conversation.map((reply) => (
           <ListConversation
@@ -52,6 +55,7 @@ TicketConversation.propTypes = {
 
 const mapStateToProps = (state) => ({
   ticket: state.ticket,
+  user: state.auth.user,
 });
 
 export default connect(mapStateToProps, { getTicket })(TicketConversation);
