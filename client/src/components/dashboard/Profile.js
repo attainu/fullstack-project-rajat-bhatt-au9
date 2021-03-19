@@ -1,5 +1,6 @@
 import React from "react";
 import "./profile.css";
+import Moment from "react-moment";
 const Profile = ({ user }) => {
   return (
     <div>
@@ -47,7 +48,9 @@ const Profile = ({ user }) => {
                         </div>
                         <div className='col-sm-6'>
                           <p className='m-b-10 f-w-600'>Active From</p>
-                          <h6 className='text-muted f-w-400'>{user.date}</h6>
+                          <h6 className='text-muted f-w-400'>
+                            <Moment format='DD/MM/YYYY'>{user.date}</Moment>
+                          </h6>
                         </div>
                       </div>
                     </div>
