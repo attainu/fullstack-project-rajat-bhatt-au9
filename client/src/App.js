@@ -14,6 +14,7 @@ import TicketPage from "./components/ticket/TicketPage";
 import PrivateRoute from "./components/routing/PrivateRoute";
 import UserPage from "./components/user/UserPage";
 import CreateTicket from "./components/ticket/CreateTicket";
+import EditProfile from "./components/editprofile/EditProfile";
 
 import "./App.css";
 
@@ -44,6 +45,7 @@ const App = () => {
             <PrivateRoute exact path='/user-page' component={UserPage} />
             <PrivateRoute path='/create-user' component={CreateUser} />
             <PrivateRoute path='/create-ticket' component={CreateTicket} />
+            <PrivateRoute path='/edit-profile' component={EditProfile} />
           </Switch>
         </Fragment>
       </Router>

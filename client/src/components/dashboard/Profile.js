@@ -1,5 +1,6 @@
 import React from "react";
 import "./profile.css";
+import { Link } from "react-router-dom";
 const Profile = ({ user }) => {
   return (
     <div>
@@ -48,7 +49,14 @@ const Profile = ({ user }) => {
                         <div className='col-sm-6'>
                           <p className='m-b-10 f-w-600'>Active From</p>
                           <h6 className='text-muted f-w-400'>{user.date}</h6>
-                        </div>
+                        </div> 
+                      <div className="editprofile">
+                          <Link to='/edit-profile'
+                          className='d-sm-inline-block btn btn-sm btn-primary shadow-sm'>
+                         <i class="fa fa-check" aria-hidden="true"></i>
+                            Edit Profile
+                          </Link> 
+                      </div>
                       </div>
                     </div>
                   </div>

@@ -72,13 +72,56 @@ router.post(
 //@route    GET api/users/allusers
 //@description  Get all users
 //@access   Private
-router.get("/allusers",auth, async (req, res) => {
+router.get("/allusers",auth,
+ async (req, res) => {
   try {
     const user = await User.find().select("-password");
     res.json(user);
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error");
+  }
+});
+
+
+//@route    PUT api/users/editprofile/:id
+//@description  update user profile
+//@access   Private 
+
+router.put('/editprofile/:id', auth,
+ [
+    check("name", "Name is required").not().isEmpty(),
+    check("password", "Password should be 6 characters long").isLength({
+      min: 6,
+    }),
+    
+  ],
+  async (req, res) => {
+
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+  try {
+    
+    const updates = {name:req.body.name,
+                avatar:req.body.avatar,
+                password: req.body.password } 
+    
+    const salt = await bcrypt.genSalt(10);
+    updates.password = await bcrypt.hash(req.body.password, salt);
+
+    const user = await User.findOneAndUpdate(
+      {_id:req.params.id}, updates)
+
+     
+      await user.save();
+      res.json(user)
+
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
   }
 });
 
