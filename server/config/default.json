@@ -1,4 +1,0 @@
-{
-    "mongoURI":"mongodb+srv://rajatbhatt123:rajatbhatt123@cluster0.hdttm.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
-    "jwtSecret":"thisismysecurewebtoken"
-}
