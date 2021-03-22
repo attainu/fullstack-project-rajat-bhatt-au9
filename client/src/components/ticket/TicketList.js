@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
+import './ticketpage.css'
 const TicketList = ({ ticket }) => {
   return (
     <tr>
@@ -16,7 +16,7 @@ const TicketList = ({ ticket }) => {
       </td>
       <td>{ticket.email}</td>
       <td>
-        <Link to={`/ticket/${ticket._id}`}>{ticket.ticket_issue}</Link>
+        <Link class='ticket-issue' to={`/ticket/${ticket._id}`}>{ticket.ticket_issue}</Link>
       </td>
       <td>{ticket.priority}</td>
       <td>{ticket.desc}</td>

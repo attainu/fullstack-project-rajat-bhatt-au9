@@ -98,11 +98,7 @@ const TicketPage = ({
                           <div className='mb-1'>
                             {/* <span className="text-danger"> <a href="#"></a><i className="mdi mdi-arrow-bottom-right">Go to Client</i></a> </span>
                                         <span className="text-muted">Since last week</span> */}
-                            <span className='text-danger'>
-                              <i className='mdi mdi-arrow-bottom-right'>
-                                Go to Tickets
-                              </i>
-                            </span>
+                            
                           </div>
                         </div>
                       </div>

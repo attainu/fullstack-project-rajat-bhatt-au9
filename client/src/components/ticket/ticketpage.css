@@ -202,11 +202,17 @@ html {
   vertical-align: top;
   border-top: 1px solid #dee2e6;
 }
+
+.table td a:hover {
+  color: red;
+}
+
 .table h5 {
   font-size: 16px;
   font-weight: 600;
   color: #585858;
 }
+
 /*---------------------------------
       main-table
       ----------------------*/
