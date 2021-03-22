@@ -6,6 +6,7 @@ import {
   TICKET_ERROR,
   GET_TICKET,
   ADD_REPLY,
+  UPDATE_TICKET_STATUS,
 } from "../actions/types";
 
 const initialState = {
@@ -45,6 +46,7 @@ export default function (state = initialState, action) {
         loading: false,
       };
     case GET_TICKET:
+    case UPDATE_TICKET_STATUS:
       return {
         ...state,
         ticket: payload,

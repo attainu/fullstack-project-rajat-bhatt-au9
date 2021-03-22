@@ -1,37 +1,37 @@
 import axios from "axios";
 import {
-  GET_USERS, 
+  GET_USERS,
   GET_USERS_ERROR,
-  PUT_EDIT_PROFILE, 
-  PUT_EDIT_PROFILE_ERROR
-
-} from './types';
+  PUT_EDIT_PROFILE,
+  PUT_EDIT_PROFILE_ERROR,
+} from "./types";
 
 import { setAlert } from "./alert";
 
 //Get User
 export const getUsers = () => async (dispatch) => {
-  
-    try {
-      const res = await axios.get("http://localhost:5000/api/users/allusers");
-  
-      dispatch({
-        type: GET_USERS,
-        payload: res.data,
-      });
-    } catch (err) {
-      dispatch({
-        type: GET_USERS_ERROR,
-        payload: {
-          msg: err.response.statusText,
-          status: err.response.status,
-        },
-      });
-    }
-  };
+  try {
+    const res = await axios.get("http://localhost:5000/api/users/allusers");
 
- // Edit User Profile
-  export const editProfile = (userId, { name, avatar, password }) => async (dispatch) => {
+    dispatch({
+      type: GET_USERS,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: GET_USERS_ERROR,
+      payload: {
+        msg: err.response.statusText,
+        status: err.response.status,
+      },
+    });
+  }
+};
+
+// Edit User Profile
+export const editProfile = (userId, { name, avatar, password }) => async (
+  dispatch
+) => {
   const config = {
     headers: {
       "Content-Type": "application/json",

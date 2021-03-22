@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { getTickets } from "../../actions/ticket";
 import { Link } from "react-router-dom";
@@ -17,6 +17,37 @@ const TicketPage = ({
   useEffect(() => {
     getTickets();
   }, [getTickets]);
+
+  const [allTicket, setallTicket] = useState(true);
+  const [newTicket, setnewTicket] = useState(false);
+  const [progressTicket, setprogressTicket] = useState(false);
+  const [resolvedTicket, setresolvedTicket] = useState(false);
+
+  const onChange = async (e) => {
+    e.preventDefault();
+    //e.target.value
+    if (e.target.value === "New") {
+      setallTicket(false);
+      setnewTicket(true);
+      setprogressTicket(false);
+      setresolvedTicket(false);
+    } else if (e.target.value === "In Progress") {
+      setallTicket(false);
+      setnewTicket(false);
+      setprogressTicket(true);
+      setresolvedTicket(false);
+    } else if (e.target.value === "Resolved") {
+      setallTicket(false);
+      setnewTicket(false);
+      setprogressTicket(false);
+      setresolvedTicket(true);
+    } else {
+      setallTicket(true);
+      setnewTicket(false);
+      setprogressTicket(false);
+      setprogressTicket(false);
+    }
+  };
 
   return loading && tickets === null ? (
     <Fragment>
@@ -86,14 +117,21 @@ const TicketPage = ({
                             <h4 className='card-title'>List Of Tickets</h4>
                           </div>
                           <div className='ml-auto'>
+                            <h3 className='card-title'>
+                              Filter Tickets by Status
+                            </h3>
                             <div className='dl'>
-                              <select className='custom-select'>
-                                <option value='0' selected=''>
-                                  Monthly
+                              <select
+                                className='custom-select'
+                                name='status'
+                                onChange={(e) => onChange(e)}
+                              >
+                                <option value='All Ticket' selected=''>
+                                  All Ticket
                                 </option>
-                                <option value='1'>Daily</option>
-                                <option value='2'>Weekly</option>
-                                <option value='3'>Yearly</option>
+                                <option value='New'>New</option>
+                                <option value='In Progress'>In Progress</option>
+                                <option value='Resolved'>Resolved</option>
                               </select>
                             </div>
                           </div>
@@ -114,7 +152,7 @@ const TicketPage = ({
                           </thead>
                           <tbody>
                             {user.role === "Client"
-                              ? tickets
+                              ? /* tickets
                                   .filter(
                                     (ticket) => ticket.email === user.email
                                   )
@@ -123,10 +161,104 @@ const TicketPage = ({
                                       key={filteredTicket.id}
                                       ticket={filteredTicket}
                                     />
-                                  ))
-                              : tickets.map((ticket) => (
-                                  <TicketList key={ticket.id} ticket={ticket} />
-                                ))}
+                                  )) */
+                                (function () {
+                                  if (allTicket) {
+                                    return tickets
+                                      .filter(
+                                        (ticket) => ticket.email === user.email
+                                      )
+                                      .map((ticket) => (
+                                        <TicketList
+                                          key={ticket.id}
+                                          ticket={ticket}
+                                        />
+                                      ));
+                                  } else if (newTicket) {
+                                    return tickets
+                                      .filter(
+                                        (ticket) =>
+                                          ticket.status === "New" &&
+                                          ticket.email === user.email
+                                      )
+                                      .map((filterNew) => (
+                                        <TicketList
+                                          key={filterNew.id}
+                                          ticket={filterNew}
+                                        />
+                                      ));
+                                  } else if (progressTicket) {
+                                    return tickets
+                                      .filter(
+                                        (ticket) =>
+                                          ticket.status === "In Progress" &&
+                                          ticket.email === user.email
+                                      )
+                                      .map((filterProgress) => (
+                                        <TicketList
+                                          key={filterProgress.id}
+                                          ticket={filterProgress}
+                                        />
+                                      ));
+                                  } else if (resolvedTicket) {
+                                    return tickets
+                                      .filter(
+                                        (ticket) =>
+                                          ticket.status === "Resolved" &&
+                                          ticket.email === user.email
+                                      )
+                                      .map((filterProgress) => (
+                                        <TicketList
+                                          key={filterProgress.id}
+                                          ticket={filterProgress}
+                                        />
+                                      ));
+                                  }
+                                })()
+                              : (function () {
+                                  if (allTicket) {
+                                    return tickets.map((ticket) => (
+                                      <TicketList
+                                        key={ticket.id}
+                                        ticket={ticket}
+                                      />
+                                    ));
+                                  } else if (newTicket) {
+                                    return tickets
+                                      .filter(
+                                        (ticket) => ticket.status === "New"
+                                      )
+                                      .map((filterNew) => (
+                                        <TicketList
+                                          key={filterNew.id}
+                                          ticket={filterNew}
+                                        />
+                                      ));
+                                  } else if (progressTicket) {
+                                    return tickets
+                                      .filter(
+                                        (ticket) =>
+                                          ticket.status === "In Progress"
+                                      )
+                                      .map((filterProgress) => (
+                                        <TicketList
+                                          key={filterProgress.id}
+                                          ticket={filterProgress}
+                                        />
+                                      ));
+                                  } else if (resolvedTicket) {
+                                    return tickets
+                                      .filter(
+                                        (ticket) => ticket.status === "Resolved"
+                                      )
+                                      .map((filterProgress) => (
+                                        <TicketList
+                                          key={filterProgress.id}
+                                          ticket={filterProgress}
+                                        />
+                                      ));
+                                  }
+                                })()}
                           </tbody>
                         </table>
                       </div>

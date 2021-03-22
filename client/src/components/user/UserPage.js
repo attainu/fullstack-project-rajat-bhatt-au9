@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import Footer from "../layout/Footer";
 import Navbar from "../layout/Navbar";
 import "./userpage.css";
@@ -11,9 +11,31 @@ import Alert from "../layout/Alert";
 import Spinner from "../layout/Spinner";
 
 const UserPage = ({ getUsers, user: { users, loading } }) => {
+  const [allUser, setallUser] = useState(true);
+  const [adminUser, setadminUser] = useState(false);
+  const [clientUser, setclientUser] = useState(false);
+
   useEffect(() => {
     getUsers();
   }, [getUsers]);
+
+  const onChange = async (e) => {
+    e.preventDefault();
+    //e.target.value
+    if (e.target.value === "Admin") {
+      setadminUser(true);
+      setclientUser(false);
+      setallUser(false);
+    } else if (e.target.value === "Client") {
+      setadminUser(false);
+      setclientUser(true);
+      setallUser(false);
+    } else {
+      setadminUser(false);
+      setclientUser(false);
+      setallUser(true);
+    }
+  };
 
   return loading && users === null ? (
     <Fragment>
@@ -73,17 +95,21 @@ const UserPage = ({ getUsers, user: { users, loading } }) => {
                       <div className='card-body'>
                         <div className='d-md-flex align-items-center'>
                           <div>
-                            <h4 className='card-title'>List Of Users </h4>
+                            <h1 className='card-title'>List Of Users </h1>
                           </div>
                           <div className='ml-auto'>
+                            <h3 className='card-title'>Filter</h3>
                             <div className='dl'>
-                              <select className='custom-select'>
-                                <option value='0' selected=''>
-                                  Monthly
+                              <select
+                                className='custom-select'
+                                name='user'
+                                onChange={(e) => onChange(e)}
+                              >
+                                <option value='All Users' selected=''>
+                                  All Users
                                 </option>
-                                <option value='1'>Daily</option>
-                                <option value='2'>Weekly</option>
-                                <option value='3'>Yearly</option>
+                                <option value='Admin'>Admin</option>
+                                <option value='Client'>Client</option>
                               </select>
                             </div>
                           </div>
@@ -96,13 +122,37 @@ const UserPage = ({ getUsers, user: { users, loading } }) => {
                               <th className='border-top-0'>Name</th>
                               <th className='border-top-0'>Email</th>
                               <th className='border-top-0'>Role</th>
-                              <th className='border-top-0'>Date</th>
+                              <th className='border-top-0'>
+                                User Created Date
+                              </th>
                             </tr>
                           </thead>
                           <tbody>
-                            {users.map((user) => (
-                              <UserList key={user.id} user={user} />
-                            ))}
+                            {(function () {
+                              if (allUser) {
+                                return users.map((user) => (
+                                  <UserList key={user.id} user={user} />
+                                ));
+                              } else if (adminUser) {
+                                return users
+                                  .filter((user) => user.role === "Admin")
+                                  .map((filterAdmin) => (
+                                    <UserList
+                                      key={filterAdmin.id}
+                                      user={filterAdmin}
+                                    />
+                                  ));
+                              } else if (clientUser) {
+                                return users
+                                  .filter((user) => user.role === "Client")
+                                  .map((filterAdmin) => (
+                                    <UserList
+                                      key={filterAdmin.id}
+                                      user={filterAdmin}
+                                    />
+                                  ));
+                              }
+                            })()}
                           </tbody>
                         </table>
                       </div>

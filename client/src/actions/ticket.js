@@ -9,6 +9,7 @@ import {
   GET_TICKET,
   TICKET_ERROR,
   ADD_REPLY,
+  UPDATE_TICKET_STATUS,
 } from "./types";
 
 export const getTickets = () => async (dispatch) => {
@@ -113,6 +114,40 @@ export const addReply = (ticketId, formData) => async (dispatch) => {
     dispatch({
       type: TICKET_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+// Update Ticket Status
+export const updateStatus = (ticketId, status) => async (dispatch) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+
+  const body = JSON.stringify({ status });
+
+  try {
+    const res = await axios.put(
+      `http://localhost:5000/api/ticket/updateticket/${ticketId}`,
+      body,
+      config
+    );
+    dispatch({
+      type: UPDATE_TICKET_STATUS,
+      payload: res.data,
+    });
+    dispatch(setAlert("Ticket status updated Successfully", "success"));
+  } catch (err) {
+    const errors = err.response.data.errors;
+
+    if (errors) {
+      errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
+    }
+
+    dispatch({
+      type: TICKET_ERROR,
     });
   }
 };

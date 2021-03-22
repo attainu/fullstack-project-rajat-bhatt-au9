@@ -121,4 +121,40 @@ router.post(
   }
 );
 
+//@route    PUT api/ticket/updateticket/:id
+//@description  update ticket status
+//@access   Private
+
+router.put(
+  "/updateticket/:id",
+  auth,
+  [check("status", "Status is required").not().isEmpty()],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    try {
+      const updates = {
+        status: req.body.status,
+      };
+
+      const ticket = await Ticket.findOneAndUpdate(
+        { _id: req.params.id },
+        updates,
+        {
+          new: true,
+        }
+      );
+
+      await ticket.save();
+      res.json(ticket);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send("Server Error");
+    }
+  }
+);
+
 module.exports = router;
