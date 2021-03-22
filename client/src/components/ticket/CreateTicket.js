@@ -39,9 +39,23 @@ const CreateTicket = ({ createTicket }) => {
 
   return (
     <Fragment>
-      <Navbar />
+      <Navbar /><br/>
 
-      <Link to='/ticket'>go back </Link>
+      <div className='container-fluid px-lg-4'>
+              <div className='row'>
+                
+                  <div className='d-sm-flex align-items-center justify-content-between mb-4'>
+                    <h1 className='h3 mb-0 text-gray-800'></h1>
+                    <Link
+                      to='/ticket'
+                      className='d-sm-inline-block btn btn-sm btn-primary shadow-sm'>
+                     <i class="fas fa-arrow-alt-circle-left"></i> <span></span>
+                      Go back
+                    </Link>
+                  </div>
+              </div>
+    </div>
+
       <form class='form-basic' onSubmit={(e) => onSubmit(e)}>
         <div class='form-title-row'>
           <h1>Create Ticket</h1>
@@ -105,6 +119,7 @@ const CreateTicket = ({ createTicket }) => {
         <div class='form-row'>
           <button type='submit'>Submit Form</button>
         </div>
+        
       </form>
       <Footer />
     </Fragment>

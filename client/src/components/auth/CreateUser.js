@@ -6,7 +6,7 @@ import Alert from "../layout/Alert";
 import { connect } from "react-redux";
 import { setAlert } from "../../actions/alert";
 import { createUser } from "../../actions/auth";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 
 import PropTypes from "prop-types";
 
@@ -49,7 +49,23 @@ const CreateUser = ({ user, setAlert, createUser }) => {
 
   return (
     <Fragment>
-      <Navbar />
+      <Navbar /> <br/>
+
+      <div className='container-fluid px-lg-4'>
+              <div className='row'>
+                
+                  <div className='d-sm-flex align-items-center justify-content-between mb-4'>
+                    <h1 className='h3 mb-0 text-gray-800'></h1>
+                    <Link
+                      to='/user-page'
+                      className='d-sm-inline-block btn btn-sm btn-primary shadow-sm'>
+                     <i class="fas fa-arrow-alt-circle-left"></i> <span></span>
+                      Go back
+                    </Link>
+                  </div>
+              </div>
+    </div>
+
 
       <form className='form-basic' onSubmit={(e) => onSubmit(e)}>
         <div className='form-title-row'>

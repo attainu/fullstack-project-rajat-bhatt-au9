@@ -1,12 +1,14 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./admindashboard.css";
 import Footer from "../layout/Footer";
 import Navbar from "../layout/Navbar";
 import Profile from "./Profile";
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { getUsers } from "../../actions/user";
 import { getTickets } from "../../actions/ticket";
+import UserList from "../user/UserList";
+import ReactPaginate from "react-paginate";
 
 import PropTypes from "prop-types";
 
@@ -34,6 +36,22 @@ const AdminDashboard = ({
   console.log("new: ", numNew);
   console.log("progress: ", numProgress);
 
+  const [pageNumber, setPageNumber] = useState(0);
+  const usersPerPage = 10;
+  const pagesVisited = pageNumber * usersPerPage;
+
+  const displayUsers = users
+    .slice(pagesVisited, pagesVisited + usersPerPage)
+    .map((user) => {
+      return <UserList key={user.id} user={user} />;
+    });
+
+  const pageCount = Math.ceil(users.length / usersPerPage);
+
+  const changePage = ({ selected }) => {
+    setPageNumber(selected);
+  };
+
   return !isAuthenticated ? (
     <Redirect to='/' />
   ) : (
@@ -43,7 +61,6 @@ const AdminDashboard = ({
       <div id='page-content-wrapper'>
         <div id='content'>
           <div className='container-fluid p-0 px-lg-0 px-md-0'>
-            {/* Navbar */}
             <Navbar />
 
             <div className='container-fluid px-lg-4'>
@@ -51,13 +68,6 @@ const AdminDashboard = ({
                 <div className='col-md-12 mt-lg-4 mt-4'>
                   <div className='d-sm-flex align-items-center justify-content-between mb-4'>
                     <h1 className='h3 mb-0 text-gray-800'>Dashboard</h1>
-                    <a
-                      href='#'
-                      className='d-sm-inline-block btn btn-sm btn-primary shadow-sm'
-                    >
-                      <i className='fas fa-download fa-sm text-white-50'></i>
-                      Generate Report
-                    </a>
                   </div>
                 </div>
                 {/* vhjgjhd */}
@@ -112,19 +122,7 @@ const AdminDashboard = ({
                       <div className='card-body'>
                         <div className='d-md-flex align-items-center'>
                           <div>
-                            <h4 className='card-title'>List Of tickets</h4>
-                          </div>
-                          <div className='ml-auto'>
-                            <div className='dl'>
-                              <select className='custom-select'>
-                                <option value='0' selected=''>
-                                  Monthly
-                                </option>
-                                <option value='1'>Daily</option>
-                                <option value='2'>Weekly</option>
-                                <option value='3'>Yearly</option>
-                              </select>
-                            </div>
+                            <h4 className='card-title'>List Of Users</h4>
                           </div>
                         </div>
                       </div>
@@ -132,130 +130,29 @@ const AdminDashboard = ({
                         <table className='table v-middle'>
                           <thead>
                             <tr className='bg-light'>
-                              <th className='border-top-0'>Products</th>
-                              <th className='border-top-0'>License</th>
-                              <th className='border-top-0'>Support Agent</th>
-                              <th className='border-top-0'>Technology</th>
-                              <th className='border-top-0'>Tickets</th>
-                              <th className='border-top-0'>Sales</th>
-                              <th className='border-top-0'>Earnings</th>
+                              <th className='border-top-0'>Name</th>
+                              <th className='border-top-0'>Email</th>
+                              <th className='border-top-0'>Role</th>
+                              <th className='border-top-0'>Date</th>
                             </tr>
                           </thead>
-                          <tbody>
-                            <tr>
-                              <td>
-                                <div className='d-flex align-items-center'>
-                                  <div className='m-r-10'>
-                                    <a className='btn btn-circle btn-info text-white'>
-                                      EA
-                                    </a>
-                                  </div>
-                                  <div className=''>
-                                    <h4 className='m-b-0 font-16'>
-                                      Elite Admin
-                                    </h4>
-                                  </div>
-                                </div>
-                              </td>
-                              <td>Single Use</td>
-                              <td>John Doe</td>
-                              <td>
-                                <label className='label label-danger'>
-                                  Angular
-                                </label>
-                              </td>
-                              <td>46</td>
-                              <td>356</td>
-                              <td>
-                                <h5 className='m-b-0'>$2850.06</h5>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <div className='d-flex align-items-center'>
-                                  <div className='m-r-10'>
-                                    <a className='btn btn-circle btn-orange text-white'>
-                                      MA
-                                    </a>
-                                  </div>
-                                  <div className=''>
-                                    <h4 className='m-b-0 font-16'>
-                                      Monster Admin
-                                    </h4>
-                                  </div>
-                                </div>
-                              </td>
-                              <td>Single Use</td>
-                              <td>Venessa Fern</td>
-                              <td>
-                                <label className='label label-info'>
-                                  Vue Js
-                                </label>
-                              </td>
-                              <td>46</td>
-                              <td>356</td>
-                              <td>
-                                <h5 className='m-b-0'>$2850.06</h5>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <div className='d-flex align-items-center'>
-                                  <div className='m-r-10'>
-                                    <a className='btn btn-circle btn-success text-white'>
-                                      MP
-                                    </a>
-                                  </div>
-                                  <div className=''>
-                                    <h4 className='m-b-0 font-16'>
-                                      Material Pro Admin
-                                    </h4>
-                                  </div>
-                                </div>
-                              </td>
-                              <td>Single Use</td>
-                              <td>John Doe</td>
-                              <td>
-                                <label className='label label-success'>
-                                  Bootstrap
-                                </label>
-                              </td>
-                              <td>46</td>
-                              <td>356</td>
-                              <td>
-                                <h5 className='m-b-0'>$2850.06</h5>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <div className='d-flex align-items-center'>
-                                  <div className='m-r-10'>
-                                    <a className='btn btn-circle btn-purple text-white'>
-                                      AA
-                                    </a>
-                                  </div>
-                                  <div className=''>
-                                    <h4 className='m-b-0 font-16'>
-                                      Ample Admin
-                                    </h4>
-                                  </div>
-                                </div>
-                              </td>
-                              <td>Single Use</td>
-                              <td>John Doe</td>
-                              <td>
-                                <label className='label label-purple'>
-                                  React
-                                </label>
-                              </td>
-                              <td>46</td>
-                              <td>356</td>
-                              <td>
-                                <h5 className='m-b-0'>$2850.06</h5>
-                              </td>
-                            </tr>
-                          </tbody>
+                          <tbody>{displayUsers}</tbody>
                         </table>
+                      </div>{" "}
+                      <br />
+                      <div>
+                        <ReactPaginate
+                          className='d-flex align-items-center'
+                          previousLabel={"Previous"}
+                          nextLabel={"Next"}
+                          pageCount={pageCount}
+                          onPageChange={changePage}
+                          containerClassName={"paginationBttns"}
+                          previousLinkClassName={"previousBttn"}
+                          nextLinkClassName={"nextBttn"}
+                          disabledClassName={"paginationDisabled"}
+                          activeClassName={"paginationActive"}
+                        />
                       </div>
                     </div>
                   </div>
