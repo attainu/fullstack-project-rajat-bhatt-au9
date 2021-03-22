@@ -1,12 +1,39 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./admindashboard.css";
 import Footer from "../layout/Footer";
 import Navbar from "../layout/Navbar";
 import Profile from "./Profile";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
+import { getUsers } from "../../actions/user";
+import { getTickets } from "../../actions/ticket";
 
-const AdminDashboard = ({ user, isAuthenticated }) => {
+import PropTypes from "prop-types";
+
+const AdminDashboard = ({
+  getUsers,
+  getTickets,
+  users,
+  tickets,
+  user,
+  isAuthenticated,
+}) => {
+  useEffect(() => {
+    getUsers();
+    getTickets();
+  }, [getUsers, getTickets]);
+
+  const numNew = Object.keys(
+    tickets.filter((ticket) => ticket.status === "New")
+  ).length;
+
+  const numProgress = Object.keys(
+    tickets.filter((ticket) => ticket.status === "In Progress")
+  ).length;
+
+  console.log("new: ", numNew);
+  console.log("progress: ", numProgress);
+
   return !isAuthenticated ? (
     <Redirect to='/' />
   ) : (
@@ -41,16 +68,9 @@ const AdminDashboard = ({ user, isAuthenticated }) => {
                       <div className='card'>
                         <div className='card-body'>
                           <h5 className='card-title mb-4'>Client Count</h5>
-                          <h1 className='display-5 mt-1 mb-3'>42</h1>
-                          <div className='mb-1'>
-                            {/* <span className="text-danger"> <a href="#"></a><i className="mdi mdi-arrow-bottom-right">Go to Client</i></a> </span>
-                                              <span className="text-muted">Since last week</span> */}
-                            <span className='text-danger'>
-                              <i className='mdi mdi-arrow-bottom-right'>
-                                Go to Client
-                              </i>
-                            </span>
-                          </div>
+                          <h1 className='display-5 mt-1 mb-3'>
+                            {Object.keys(users).length}
+                          </h1>
                         </div>
                       </div>
                     </div>
@@ -60,14 +80,9 @@ const AdminDashboard = ({ user, isAuthenticated }) => {
                           <h5 className='card-title mb-4'>
                             Total Tickets Count
                           </h5>
-                          <h1 className='display-5 mt-1 mb-3'>52</h1>
-                          <div className='mb-1'>
-                            <span className='text-danger'>
-                              <i className='mdi mdi-arrow-bottom-right'>
-                                Go to Client
-                              </i>
-                            </span>
-                          </div>
+                          <h1 className='display-5 mt-1 mb-3'>
+                            {Object.keys(tickets).length}
+                          </h1>
                         </div>
                       </div>
                     </div>
@@ -75,16 +90,19 @@ const AdminDashboard = ({ user, isAuthenticated }) => {
                       <div className='card'>
                         <div className='card-body'>
                           <h5 className='card-title mb-4'>
-                            Pending Tickets Count
+                            In Progress Tickets Count
                           </h5>
-                          <h1 className='display-5 mt-1 mb-3'>52</h1>
-                          <div className='mb-1'>
-                            <span className='text-danger'>
-                              <i className='mdi mdi-arrow-bottom-right'>
-                                Go to Client
-                              </i>
-                            </span>
-                          </div>
+
+                          <h1 className='display-5 mt-1 mb-3'>{numProgress}</h1>
+                        </div>
+                      </div>
+                    </div>
+                    <div className='col-sm-3'>
+                      <div className='card'>
+                        <div className='card-body'>
+                          <h5 className='card-title mb-4'>New Tickets Count</h5>
+
+                          <h1 className='display-5 mt-1 mb-3'>{numNew}</h1>
                         </div>
                       </div>
                     </div>
@@ -256,8 +274,18 @@ const AdminDashboard = ({ user, isAuthenticated }) => {
   );
 };
 
+AdminDashboard.propTypes = {
+  getUsers: PropTypes.func.isRequired,
+  getTickets: PropTypes.func.isRequired,
+  user: PropTypes.object.isRequired,
+};
+
 const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
   user: state.auth.user,
+  users: state.user.users,
+  tickets: state.ticket.tickets,
 });
-export default connect(mapStateToProps)(AdminDashboard);
+export default connect(mapStateToProps, { getUsers, getTickets })(
+  AdminDashboard
+);
