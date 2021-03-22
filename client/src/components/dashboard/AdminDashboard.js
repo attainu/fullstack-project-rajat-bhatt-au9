@@ -1,34 +1,56 @@
-import React,{useEffect,useState} from "react";
+import React, { useEffect, useState } from "react";
 import "./admindashboard.css";
 import Footer from "../layout/Footer";
 import Navbar from "../layout/Navbar";
 import Profile from "./Profile";
-import { Redirect,Link } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 import { connect } from "react-redux";
-import UserList from "../user/UserList";
 import { getUsers } from "../../actions/user";
-import ReactPaginate from "react-paginate"; 
-const AdminDashboard = ( {isAuthenticated,user, getUsers, users: { users, loading } }) => {
+import { getTickets } from "../../actions/ticket";
+import UserList from "../user/UserList";
+import ReactPaginate from "react-paginate";
+
+import PropTypes from "prop-types";
+
+const AdminDashboard = ({
+  getUsers,
+  getTickets,
+  users,
+  tickets,
+  user,
+  isAuthenticated,
+}) => {
   useEffect(() => {
     getUsers();
-  }, [getUsers]);
+    getTickets();
+  }, [getUsers, getTickets]);
 
-  /* const [user_data, setUsers] = useState(users.slice(0,20)); */
-  const[pageNumber, setPageNumber] = useState(0)
-  const usersPerPage = 10
-  const pagesVisited = pageNumber * usersPerPage
+  const numNew = Object.keys(
+    tickets.filter((ticket) => ticket.status === "New")
+  ).length;
 
-  const displayUsers = users.slice(pagesVisited, pagesVisited + usersPerPage).map((user)=> {
-    return (
-        <UserList key={user.id} user={user} />
-    )
-  })
+  const numProgress = Object.keys(
+    tickets.filter((ticket) => ticket.status === "In Progress")
+  ).length;
 
-  const pageCount = Math.ceil(users.length / usersPerPage)
+  console.log("new: ", numNew);
+  console.log("progress: ", numProgress);
 
-  const changePage = ({selected}) => {
-    setPageNumber(selected)
-  }
+  const [pageNumber, setPageNumber] = useState(0);
+  const usersPerPage = 10;
+  const pagesVisited = pageNumber * usersPerPage;
+
+  const displayUsers = users
+    .slice(pagesVisited, pagesVisited + usersPerPage)
+    .map((user) => {
+      return <UserList key={user.id} user={user} />;
+    });
+
+  const pageCount = Math.ceil(users.length / usersPerPage);
+
+  const changePage = ({ selected }) => {
+    setPageNumber(selected);
+  };
 
   return !isAuthenticated ? (
     <Redirect to='/' />
@@ -56,16 +78,9 @@ const AdminDashboard = ( {isAuthenticated,user, getUsers, users: { users, loadin
                       <div className='card'>
                         <div className='card-body'>
                           <h5 className='card-title mb-4'>Client Count</h5>
-                          <h1 className='display-5 mt-1 mb-3'>42</h1>
-                          <div className='mb-1'>
-                            {/* <span className="text-danger"> <a href="#"></a><i className="mdi mdi-arrow-bottom-right">Go to Client</i></a> </span>
-                                              <span className="text-muted">Since last week</span> */}
-                            <span className='text-danger'>
-                              <i className='mdi mdi-arrow-bottom-right'>
-                                Go to Client
-                              </i>
-                            </span>
-                          </div>
+                          <h1 className='display-5 mt-1 mb-3'>
+                            {Object.keys(users).length}
+                          </h1>
                         </div>
                       </div>
                     </div>
@@ -75,14 +90,9 @@ const AdminDashboard = ( {isAuthenticated,user, getUsers, users: { users, loadin
                           <h5 className='card-title mb-4'>
                             Total Tickets Count
                           </h5>
-                          <h1 className='display-5 mt-1 mb-3'>52</h1>
-                          <div className='mb-1'>
-                            <span className='text-danger'>
-                              <i className='mdi mdi-arrow-bottom-right'>
-                                Go to Client
-                              </i>
-                            </span>
-                          </div>
+                          <h1 className='display-5 mt-1 mb-3'>
+                            {Object.keys(tickets).length}
+                          </h1>
                         </div>
                       </div>
                     </div>
@@ -90,16 +100,19 @@ const AdminDashboard = ( {isAuthenticated,user, getUsers, users: { users, loadin
                       <div className='card'>
                         <div className='card-body'>
                           <h5 className='card-title mb-4'>
-                            Pending Tickets Count
+                            In Progress Tickets Count
                           </h5>
-                          <h1 className='display-5 mt-1 mb-3'>52</h1>
-                          <div className='mb-1'>
-                            <span className='text-danger'>
-                              <i className='mdi mdi-arrow-bottom-right'>
-                                Go to Client
-                              </i>
-                            </span>
-                          </div>
+
+                          <h1 className='display-5 mt-1 mb-3'>{numProgress}</h1>
+                        </div>
+                      </div>
+                    </div>
+                    <div className='col-sm-3'>
+                      <div className='card'>
+                        <div className='card-body'>
+                          <h5 className='card-title mb-4'>New Tickets Count</h5>
+
+                          <h1 className='display-5 mt-1 mb-3'>{numNew}</h1>
                         </div>
                       </div>
                     </div>
@@ -113,7 +126,6 @@ const AdminDashboard = ( {isAuthenticated,user, getUsers, users: { users, loadin
                           </div>
                         </div>
                       </div>
-                      
                       <div className='table-responsive'>
                         <table className='table v-middle'>
                           <thead>
@@ -122,28 +134,26 @@ const AdminDashboard = ( {isAuthenticated,user, getUsers, users: { users, loadin
                               <th className='border-top-0'>Email</th>
                               <th className='border-top-0'>Role</th>
                               <th className='border-top-0'>Date</th>
-                            </tr> 
-                          </thead> 
-                          <tbody>
-                           {displayUsers}
-                           
-                          </tbody>
+                            </tr>
+                          </thead>
+                          <tbody>{displayUsers}</tbody>
                         </table>
-                      </div> <br/>
-
+                      </div>{" "}
+                      <br />
                       <div>
-                           <ReactPaginate className="d-flex align-items-center" previousLabel= {"Previous"}
-                           nextLabel={"Next"}
-                           pageCount={pageCount}
-                           onPageChange={changePage}
-                           containerClassName={"paginationBttns"}
-                           previousLinkClassName={"previousBttn"}
-                           nextLinkClassName={"nextBttn"}
-                           disabledClassName={"paginationDisabled"}
-                           activeClassName={"paginationActive"}
-                           /> 
+                        <ReactPaginate
+                          className='d-flex align-items-center'
+                          previousLabel={"Previous"}
+                          nextLabel={"Next"}
+                          pageCount={pageCount}
+                          onPageChange={changePage}
+                          containerClassName={"paginationBttns"}
+                          previousLinkClassName={"previousBttn"}
+                          nextLinkClassName={"nextBttn"}
+                          disabledClassName={"paginationDisabled"}
+                          activeClassName={"paginationActive"}
+                        />
                       </div>
-
                     </div>
                   </div>
                 </div>
@@ -161,10 +171,18 @@ const AdminDashboard = ( {isAuthenticated,user, getUsers, users: { users, loadin
   );
 };
 
+AdminDashboard.propTypes = {
+  getUsers: PropTypes.func.isRequired,
+  getTickets: PropTypes.func.isRequired,
+  user: PropTypes.object.isRequired,
+};
+
 const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
   user: state.auth.user,
-  users: state.user,
+  users: state.user.users,
+  tickets: state.ticket.tickets,
 });
-export default connect(mapStateToProps, { getUsers })(AdminDashboard);
-
+export default connect(mapStateToProps, { getUsers, getTickets })(
+  AdminDashboard
+);
