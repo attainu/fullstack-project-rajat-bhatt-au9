@@ -15,7 +15,7 @@ const AdminDashboard = ( {isAuthenticated,user, getUsers, users: { users, loadin
 
   /* const [user_data, setUsers] = useState(users.slice(0,20)); */
   const[pageNumber, setPageNumber] = useState(0)
-  const usersPerPage = 5
+  const usersPerPage = 10
   const pagesVisited = pageNumber * usersPerPage
 
   const displayUsers = users.slice(pagesVisited, pagesVisited + usersPerPage).map((user)=> {

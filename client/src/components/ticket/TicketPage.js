@@ -46,7 +46,7 @@ const TicketPage = ({
       setnewTicket(false);
       setprogressTicket(false);
       setprogressTicket(false);
-    }
+    } 
   };
 
   return loading && tickets === null ? (
