@@ -6,6 +6,19 @@ const { check, validationResult } = require("express-validator/check");
 const Ticket = require("../../models/Ticket");
 const User = require("../../models/User");
 
+const nodemailer = require("nodemailer");
+const config = require("config");
+const userMail = config.get("emailUser");
+const userPassword = config.get("password");
+
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: userMail,
+    pass: userPassword,
+  },
+});
+
 //@route    POST api/ticket
 //@desc     Create a ticket
 //@access    Private
@@ -149,6 +162,24 @@ router.put(
       );
 
       await ticket.save();
+
+      //sending email
+      const user = await User.findById(ticket.user).select("-password");
+      var mailOptions = {
+        from: "no-reply@crm.com",
+        to: user.email,
+        subject: `Ticket: ${ticket.ticket_issue} has been Updated`,
+        text: "Hi ${user.name}, Ticket Status Updated to <b>${ticket.status}. For further enquiry please Login check Crm Ticketing Apllication.",
+        html: `Hi <b>${user.name}</b>, <br/> Ticket Status Updated to <b>${ticket.status}</b>. <br/> For further enquiry please Login check Crm Ticketing Apllication.`,
+      };
+      await transporter.sendMail(mailOptions, function (error, info) {
+        if (error) {
+          console.log(error);
+        } else {
+          console.log("Email sent: " + info.response);
+        }
+      });
+
       res.json(ticket);
     } catch (err) {
       console.error(err.message);
