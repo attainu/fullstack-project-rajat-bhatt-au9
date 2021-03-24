@@ -91,11 +91,7 @@ const UserPage = ({ getUsers, user: { users, loading } }) => {
                             {Object.keys(users).length}
                           </h1>
                           <div className='mb-1'>
-                            <span className='text-danger'>
-                              <i className='mdi mdi-arrow-bottom-right'>
-                                Go to Client
-                              </i>
-                            </span>
+                           
                           </div>
                         </div>
                       </div>
@@ -113,7 +109,7 @@ const UserPage = ({ getUsers, user: { users, loading } }) => {
                             <h3 className='card-title'>Filter</h3>
                             <div className='dl'>
                               <select
-                                className='custom-select'
+                                className="form-select form-select-sm" aria-label=".form-select-sm example"
                                 name='user'
                                 onChange={(e) => onChange(e)}
                               >

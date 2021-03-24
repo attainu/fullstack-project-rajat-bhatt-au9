@@ -8,16 +8,24 @@ import TicketList from "./TicketList";
 import Spinner from "../layout/Spinner";
 import Alert from "../layout/Alert";
 import ReactPaginate from "react-paginate";
+import { getUsers } from "../../actions/user";
 
 const TicketPage = ({
   isAuthenticated,
   user,
+  users,
   getTickets,
+  getUsers,
   ticket: { tickets, loading },
 }) => {
   useEffect(() => {
     getTickets();
-  }, [getTickets]);
+    getUsers();
+  }, [getTickets,getUsers]);
+
+   const userAllTicket = Object.keys(
+    tickets.filter((ticket) => ticket.user === user._id)
+  ).length;
 
   const [allTicket, setallTicket] = useState(true);
   const [newTicket, setnewTicket] = useState(false);
@@ -103,8 +111,10 @@ const TicketPage = ({
                             Total Tickets Count{" "}
                           </h5>
                           <h1 className='display-5 mt-1 mb-3'>
-                            {Object.keys(tickets).length}
+                           {user.role === "Admin" ? <div> {Object.keys(tickets).length} </div> : <div> {userAllTicket} </div>}
+                          
                           </h1>
+                          
                           <div className='mb-1'></div>
                         </div>
                       </div>
@@ -316,7 +326,8 @@ const TicketPage = ({
 const mapStateToProps = (state) => ({
   ticket: state.ticket,
   isAuthenticated: state.auth.isAuthenticated,
+  users: state.user.users,
   user: state.auth.user,
 });
 
-export default connect(mapStateToProps, { getTickets })(TicketPage);
+export default connect(mapStateToProps, { getUsers,getTickets })(TicketPage);
