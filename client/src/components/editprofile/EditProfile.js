@@ -8,7 +8,6 @@ import { connect } from "react-redux";
 
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import { useHistory } from "react-router";
 
 const EditProfile = ({ user, editProfile }) => {
   const [formData, setFormData] = useState({
@@ -18,7 +17,6 @@ const EditProfile = ({ user, editProfile }) => {
   });
 
   const { name, password, password2 } = formData;
-  let history = useHistory();
   const onChange = (e) =>
     setFormData({
       ...formData,
