@@ -1,13 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import './ticketpage.css'
+import "./ticketpage.css";
 const TicketList = ({ ticket }) => {
   return (
     <tr>
       <td>
         <div className='d-flex align-items-center'>
           <div className='m-r-10'>
-            <img className='btn btn-circle text-white' src={ticket.avatar} />
+            <img
+              className='btn btn-circle text-white'
+              src={ticket.avatar}
+              alt='avatar'
+            />
           </div>
           <div className=''>
             <h4 className='m-b-0 font-16'>{ticket.name}</h4>
@@ -16,7 +20,9 @@ const TicketList = ({ ticket }) => {
       </td>
       <td>{ticket.email}</td>
       <td>
-        <Link class='ticket-issue' to={`/ticket/${ticket._id}`}>{ticket.ticket_issue}</Link>
+        <Link className='ticket-issue' to={`/ticket/${ticket._id}`}>
+          {ticket.ticket_issue}
+        </Link>
       </td>
       <td>{ticket.priority}</td>
       <td>{ticket.desc}</td>

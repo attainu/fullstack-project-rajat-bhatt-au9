@@ -1,22 +1,26 @@
 import React from "react";
 import Moment from "react-moment";
 
-import {deleteUser} from '../../actions/user';
-import {connect} from 'react-redux';
+import { deleteUser } from "../../actions/user";
+import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
-
-const UserList = ({ user: {_id, avatar, name, email,role, date}, deleteUser }) => {
-
-
+const UserList = ({
+  user: { _id, avatar, name, email, role, date },
+  deleteUser,
+}) => {
   return (
     <tr>
       <td>
         <div className='d-flex align-items-center'>
           <div className='m-r-10'>
-            <img className='btn btn-circle text-white' src={avatar} />
+            <img
+              className='btn btn-circle text-white'
+              src={avatar}
+              alt='avatar'
+            />
           </div>
-          <div className=''>
+          <div>
             <h4 className='m-b-0 font-16'>{name}</h4>
           </div>
         </div>
@@ -28,13 +32,16 @@ const UserList = ({ user: {_id, avatar, name, email,role, date}, deleteUser }) =
           <Moment format='DD/MM/YYYY'>{date}</Moment>
         </label>
       </td>
-      <td> <button
+      <td>
+        {" "}
+        <button
           onClick={(e) => deleteUser(_id)}
           type='button'
           className='btn btn-danger'
         >
-          <i class="fas fa-trash-alt"></i>
-        </button> </td>
+          <i className='fas fa-trash-alt'></i>
+        </button>{" "}
+      </td>
     </tr>
   );
 };
@@ -42,4 +49,4 @@ const UserList = ({ user: {_id, avatar, name, email,role, date}, deleteUser }) =
 UserList.propTypes = {
   deleteUser: PropTypes.func.isRequired,
 };
-export default connect(null, {deleteUser})(UserList);
+export default connect(null, { deleteUser })(UserList);

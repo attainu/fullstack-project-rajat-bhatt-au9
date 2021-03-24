@@ -3,7 +3,7 @@ import "./admindashboard.css";
 import Footer from "../layout/Footer";
 import Navbar from "../layout/Navbar";
 import Profile from "./Profile";
-import { Redirect, Link } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { getUsers } from "../../actions/user";
 import { getTickets } from "../../actions/ticket";
@@ -32,9 +32,6 @@ const AdminDashboard = ({
   const numProgress = Object.keys(
     tickets.filter((ticket) => ticket.status === "In Progress")
   ).length;
-
-  console.log("new: ", numNew);
-  console.log("progress: ", numProgress);
 
   const [pageNumber, setPageNumber] = useState(0);
   const usersPerPage = 10;
@@ -133,7 +130,9 @@ const AdminDashboard = ({
                               <th className='border-top-0'>Name</th>
                               <th className='border-top-0'>Email</th>
                               <th className='border-top-0'>Role</th>
-                              <th className='border-top-0'>User Created Date</th>
+                              <th className='border-top-0'>
+                                User Created Date
+                              </th>
                               <th className='border-top-0'>Action</th>
                             </tr>
                           </thead>
@@ -175,7 +174,7 @@ const AdminDashboard = ({
 AdminDashboard.propTypes = {
   getUsers: PropTypes.func.isRequired,
   getTickets: PropTypes.func.isRequired,
-  user: PropTypes.object.isRequired,
+  user: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({

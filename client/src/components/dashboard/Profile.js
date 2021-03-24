@@ -14,7 +14,6 @@ const Profile = ({ user }) => {
                   <div className='col-sm-4 bg-c-lite-green user-profile'>
                     <div className='card-block text-center text-white'>
                       <div className='m-b-25'>
-                    
                         <img
                           src={user.avatar}
                           className='img-radius'
@@ -41,7 +40,9 @@ const Profile = ({ user }) => {
                           <h6 className='text-muted f-w-400'>{user._id}</h6>
                         </div>
                       </div>
-                      <h6 className='m-b-20 m-t-40 p-b-5 b-b-default f-w-600'></h6>
+                      <h6 className='m-b-20 m-t-40 p-b-5 b-b-default f-w-600'>
+                        {""}
+                      </h6>
                       <div className='row'>
                         <div className='col-sm-6'>
                           <p className='m-b-10 f-w-600'>Role</p>
@@ -49,19 +50,19 @@ const Profile = ({ user }) => {
                         </div>
                         <div className='col-sm-6'>
                           <p className='m-b-10 f-w-600'>Active From</p>
-                            <h6 className='text-muted f-w-400'>
+                          <h6 className='text-muted f-w-400'>
                             <Moment format='DD/MM/YYYY'>{user.date}</Moment>
                           </h6>
-                        </div> 
-                      <div className="editprofile">
-                          <Link to='/edit-profile'
-                          className='d-sm-inline-block btn btn-sm btn-primary shadow-sm'>
-                         <i class="fa fa-check" aria-hidden="true"></i>
+                        </div>
+                        <div className='editprofile'>
+                          <Link
+                            to='/edit-profile'
+                            className='d-sm-inline-block btn btn-sm btn-primary shadow-sm'
+                          >
+                            <i className='fa fa-check' aria-hidden='true'></i>
                             Edit Profile
-                          </Link> 
-                      </div>
-                        
-                      
+                          </Link>
+                        </div>
                       </div>
                     </div>
                   </div>

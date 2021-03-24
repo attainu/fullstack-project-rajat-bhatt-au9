@@ -7,6 +7,7 @@ import Navbar from "../layout/Navbar";
 import TicketList from "./TicketList";
 import Spinner from "../layout/Spinner";
 import Alert from "../layout/Alert";
+import ReactPaginate from "react-paginate";
 
 const TicketPage = ({
   isAuthenticated,
@@ -22,6 +23,15 @@ const TicketPage = ({
   const [newTicket, setnewTicket] = useState(false);
   const [progressTicket, setprogressTicket] = useState(false);
   const [resolvedTicket, setresolvedTicket] = useState(false);
+
+  const [pageNumber, setPageNumber] = useState(0);
+  const usersPerPage = 10;
+  const pagesVisited = pageNumber * usersPerPage;
+  const pageCount = Math.ceil(tickets.length / usersPerPage);
+
+  const changePage = ({ selected }) => {
+    setPageNumber(selected);
+  };
 
   const onChange = async (e) => {
     e.preventDefault();
@@ -46,7 +56,7 @@ const TicketPage = ({
       setnewTicket(false);
       setprogressTicket(false);
       setprogressTicket(false);
-    } 
+    }
   };
 
   return loading && tickets === null ? (
@@ -75,7 +85,7 @@ const TicketPage = ({
                         to='/create-ticket'
                         className='d-sm-inline-block btn btn-sm btn-primary shadow-sm'
                       >
-                        <i class='fas fa-plus'></i>
+                        <i className='fas fa-plus'></i>
                         Create New Ticket
                       </Link>
                     ) : null}
@@ -95,11 +105,7 @@ const TicketPage = ({
                           <h1 className='display-5 mt-1 mb-3'>
                             {Object.keys(tickets).length}
                           </h1>
-                          <div className='mb-1'>
-                            {/* <span className="text-danger"> <a href="#"></a><i className="mdi mdi-arrow-bottom-right">Go to Client</i></a> </span>
-                                        <span className="text-muted">Since last week</span> */}
-                            
-                          </div>
+                          <div className='mb-1'></div>
                         </div>
                       </div>
                     </div>
@@ -213,16 +219,25 @@ const TicketPage = ({
                                 })()
                               : (function () {
                                   if (allTicket) {
-                                    return tickets.map((ticket) => (
-                                      <TicketList
-                                        key={ticket.id}
-                                        ticket={ticket}
-                                      />
-                                    ));
+                                    return tickets
+                                      .slice(
+                                        pagesVisited,
+                                        pagesVisited + usersPerPage
+                                      )
+                                      .map((ticket) => (
+                                        <TicketList
+                                          key={ticket.id}
+                                          ticket={ticket}
+                                        />
+                                      ));
                                   } else if (newTicket) {
                                     return tickets
                                       .filter(
                                         (ticket) => ticket.status === "New"
+                                      )
+                                      .slice(
+                                        pagesVisited,
+                                        pagesVisited + usersPerPage
                                       )
                                       .map((filterNew) => (
                                         <TicketList
@@ -236,6 +251,10 @@ const TicketPage = ({
                                         (ticket) =>
                                           ticket.status === "In Progress"
                                       )
+                                      .slice(
+                                        pagesVisited,
+                                        pagesVisited + usersPerPage
+                                      )
                                       .map((filterProgress) => (
                                         <TicketList
                                           key={filterProgress.id}
@@ -247,6 +266,10 @@ const TicketPage = ({
                                       .filter(
                                         (ticket) => ticket.status === "Resolved"
                                       )
+                                      .slice(
+                                        pagesVisited,
+                                        pagesVisited + usersPerPage
+                                      )
                                       .map((filterProgress) => (
                                         <TicketList
                                           key={filterProgress.id}
@@ -257,6 +280,21 @@ const TicketPage = ({
                                 })()}
                           </tbody>
                         </table>
+                      </div>
+                      <br />
+                      <div>
+                        <ReactPaginate
+                          className='d-flex align-items-center'
+                          previousLabel={"Previous"}
+                          nextLabel={"Next"}
+                          pageCount={pageCount}
+                          onPageChange={changePage}
+                          containerClassName={"paginationBttns"}
+                          previousLinkClassName={"previousBttn"}
+                          nextLinkClassName={"nextBttn"}
+                          disabledClassName={"paginationDisabled"}
+                          activeClassName={"paginationActive"}
+                        />
                       </div>
                     </div>
                   </div>

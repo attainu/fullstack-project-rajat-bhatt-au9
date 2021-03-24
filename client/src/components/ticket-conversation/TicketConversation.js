@@ -20,7 +20,7 @@ const TicketConversation = ({
 }) => {
   useEffect(() => {
     getTicket(match.params.id);
-  }, [getTicket]);
+  });
 
   return loading || ticket === null ? (
     <Spinner />
@@ -30,7 +30,7 @@ const TicketConversation = ({
 
       <TicketDetail ticket={ticket} user={user} />
       <Alert />
-      <div class='comment_block'>
+      <div className='comment_block'>
         {ticket.status === "Resolved" ? null : (
           <ReplyForm ticketId={ticket._id} />
         )}

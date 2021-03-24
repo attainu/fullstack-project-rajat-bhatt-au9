@@ -9,6 +9,7 @@ import PropTypes from "prop-types";
 import UserList from "./UserList";
 import Alert from "../layout/Alert";
 import Spinner from "../layout/Spinner";
+import ReactPaginate from "react-paginate";
 
 const UserPage = ({ getUsers, user: { users, loading } }) => {
   const [allUser, setallUser] = useState(true);
@@ -18,6 +19,11 @@ const UserPage = ({ getUsers, user: { users, loading } }) => {
   useEffect(() => {
     getUsers();
   }, [getUsers]);
+
+  const [pageNumber, setPageNumber] = useState(0);
+  const usersPerPage = 10;
+
+  const pagesVisited = pageNumber * usersPerPage;
 
   const onChange = async (e) => {
     e.preventDefault();
@@ -35,6 +41,12 @@ const UserPage = ({ getUsers, user: { users, loading } }) => {
       setclientUser(false);
       setallUser(true);
     }
+  };
+
+  const pageCount = Math.ceil(users.length / usersPerPage);
+
+  const changePage = ({ selected }) => {
+    setPageNumber(selected);
   };
 
   return loading && users === null ? (
@@ -62,7 +74,7 @@ const UserPage = ({ getUsers, user: { users, loading } }) => {
                       to='/create-user'
                       className='d-sm-inline-block btn btn-sm btn-primary shadow-sm'
                     >
-                      <i class='fas fa-plus'></i>
+                      <i className='fas fa-plus'></i>
                       Add New User
                     </Link>
                   </div>
@@ -94,7 +106,6 @@ const UserPage = ({ getUsers, user: { users, loading } }) => {
                     <div className='card'>
                       <div className='card-body'>
                         <div className='d-md-flex align-items-center'>
-                      
                           <div>
                             <h1 className='card-title'>List Of Users </h1>
                           </div>
@@ -132,12 +143,21 @@ const UserPage = ({ getUsers, user: { users, loading } }) => {
                           <tbody>
                             {(function () {
                               if (allUser) {
-                                return users.map((user) => (
-                                  <UserList key={user.id} user={user} />
-                                ));
+                                return users
+                                  .slice(
+                                    pagesVisited,
+                                    pagesVisited + usersPerPage
+                                  )
+                                  .map((user) => (
+                                    <UserList key={user.id} user={user} />
+                                  ));
                               } else if (adminUser) {
                                 return users
                                   .filter((user) => user.role === "Admin")
+                                  .slice(
+                                    pagesVisited,
+                                    pagesVisited + usersPerPage
+                                  )
                                   .map((filterAdmin) => (
                                     <UserList
                                       key={filterAdmin.id}
@@ -147,6 +167,10 @@ const UserPage = ({ getUsers, user: { users, loading } }) => {
                               } else if (clientUser) {
                                 return users
                                   .filter((user) => user.role === "Client")
+                                  .slice(
+                                    pagesVisited,
+                                    pagesVisited + usersPerPage
+                                  )
                                   .map((filterAdmin) => (
                                     <UserList
                                       key={filterAdmin.id}
@@ -157,6 +181,21 @@ const UserPage = ({ getUsers, user: { users, loading } }) => {
                             })()}
                           </tbody>
                         </table>
+                      </div>
+                      <br />
+                      <div>
+                        <ReactPaginate
+                          className='d-flex align-items-center'
+                          previousLabel={"Previous"}
+                          nextLabel={"Next"}
+                          pageCount={pageCount}
+                          onPageChange={changePage}
+                          containerClassName={"paginationBttns"}
+                          previousLinkClassName={"previousBttn"}
+                          nextLinkClassName={"nextBttn"}
+                          disabledClassName={"paginationDisabled"}
+                          activeClassName={"paginationActive"}
+                        />
                       </div>
                     </div>
                   </div>
