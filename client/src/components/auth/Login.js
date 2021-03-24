@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from "react";
 
-import { Link, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import PropTypes from "prop-types";
 import Footer from "../layout/Footer";
 import Alert from "../layout/Alert";
@@ -56,7 +56,7 @@ const Login = ({ login, isAuthenticated, user }) => {
                       onSubmit={(e) => onSubmit(e)}
                     >
                       <div className='form-group mt-4'>
-                        <label for='email' className='mb-2'>
+                        <label htmlFor='email' className='mb-2'>
                           E-Mail Address
                         </label>
                         <input
@@ -67,13 +67,13 @@ const Login = ({ login, isAuthenticated, user }) => {
                           value={email}
                           onChange={(e) => onChange(e)}
                           required
-                          autofocus
+                          autoFocus
                         />
                         <div className='invalid-feedback'>Email is invalid</div>
                       </div>
 
                       <div className='form-group mt-4'>
-                        <label for='password' className='mb-2'>
+                        <label htmlFor='password' className='mb-2'>
                           Password
                         </label>
 
@@ -100,7 +100,7 @@ const Login = ({ login, isAuthenticated, user }) => {
                         </button>
                       </div>
                       <div className='mt-4 text-center'>
-                        Forgot Password? <a href='register.html'>Click Here</a>
+                        Forgot Password? <a href='#!'>Click Here</a>
                       </div>
                     </form>
                   </div>

@@ -45,7 +45,9 @@ const TicketDetail = ({ ticket, user, updateStatus }) => {
                         </h6>
                       </div>
                     </div>
-                    <h6 className='m-b-20 m-t-40 p-b-5 b-b-default f-w-600'></h6>
+                    <h6 className='m-b-20 m-t-40 p-b-5 b-b-default f-w-600'>
+                      {""}
+                    </h6>
                     <div className='row'>
                       <div className='col-sm-10'>
                         <p className='m-b-10 f-w-600'>Description</p>

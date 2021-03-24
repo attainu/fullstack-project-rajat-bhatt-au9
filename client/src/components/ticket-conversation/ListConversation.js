@@ -10,28 +10,29 @@ const ListConversation = ({
   auth,
 }) => {
   return (
-    <div class='new_comment'>
-      <ul class='user_comment'>
-        <div class='user_avatar'>
+    <div className='new_comment'>
+      <ul className='user_comment'>
+        <div className='user_avatar'>
           <img src={avatar} alt='user-avatar' />
         </div>
-        <div class='comment_body'>
+        <div className='comment_body'>
           <p>{text}</p>
         </div>
 
-        <div class='comment_toolbar'>
-          <div class='comment_details'>
+        <div className='comment_toolbar'>
+          <div className='comment_details'>
             <ul>
               <li>
-                <i class='fa fa-clock-o'></i>
+                <i className='fa fa-clock-o'></i>
                 <Moment date={date} format='hh:mm:ss' durationFromNow />
               </li>
               <li>
-                <i class='fa fa-calendar'></i>{" "}
+                <i className='fa fa-calendar'></i>{" "}
                 <Moment format='DD/MM/YYYY'>{date}</Moment>
               </li>
               <li>
-                <i class='fa fa-pencil'></i> <span class='user'>{name}</span>
+                <i className='fa fa-pencil'></i>{" "}
+                <span className='user'>{name}</span>
               </li>
             </ul>
           </div>

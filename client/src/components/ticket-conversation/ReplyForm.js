@@ -8,11 +8,11 @@ const ReplyForm = ({ user, ticketId, addReply }) => {
   const [text, setText] = useState("");
 
   return (
-    <div class='create_new_comment'>
-      <div class='user_avatar'>
+    <div className='create_new_comment'>
+      <div className='user_avatar'>
         <img src={user.avatar} alt='user_avatar' />
       </div>
-      <div class='input_comment'>
+      <div className='input_comment'>
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -27,7 +27,7 @@ const ReplyForm = ({ user, ticketId, addReply }) => {
             onChange={(e) => setText(e.target.value)}
             required
           />
-          <input class='btn-submit' type='submit' value='Submit' />
+          <input className='btn-submit' type='submit' value='Submit' />
         </form>
       </div>
     </div>

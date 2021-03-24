@@ -7,10 +7,10 @@ import "./navbar.css";
 
 const Navbar = ({ auth: { isAuthenticated, loading, user }, logout }) => {
   const client_links = (
-    <nav class='navbar bg-dark'>
+    <nav className='navbar bg-dark'>
       <p>
         <Link to='/client-dashboard'>
-          <i class='fas fa-user'></i> CRM Ticket System
+          <i className='fas fa-user'></i> CRM Ticket System
         </Link>
       </p>
       <ul>
@@ -26,7 +26,7 @@ const Navbar = ({ auth: { isAuthenticated, loading, user }, logout }) => {
         </li>
         <li>
           <Link className='nav-link' to='#' onClick={logout}>
-            <i class='fas fa-sign-out-alt'></i>
+            <i className='fas fa-sign-out-alt'></i>
             Logout
           </Link>
         </li>
@@ -61,7 +61,7 @@ const Navbar = ({ auth: { isAuthenticated, loading, user }, logout }) => {
 
         <li>
           <Link className='nav-link' to='#' onClick={logout}>
-            <i class='fas fa-sign-out-alt'></i>
+            <i className='fas fa-sign-out-alt'></i>
             Logout
           </Link>
         </li>

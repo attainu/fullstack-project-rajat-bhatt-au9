@@ -7,7 +7,7 @@ import Alert from "../layout/Alert";
 import { connect } from "react-redux";
 
 import PropTypes from "prop-types";
-import {Link} from 'react-router-dom';
+import { Link } from "react-router-dom";
 import { useHistory } from "react-router";
 
 const EditProfile = ({ user, editProfile }) => {
@@ -17,7 +17,7 @@ const EditProfile = ({ user, editProfile }) => {
     password: "",
   });
 
-  const { name, avatar, password, password2 } = formData;
+  const { name, password, password2 } = formData;
   let history = useHistory();
   const onChange = (e) =>
     setFormData({
@@ -38,14 +38,18 @@ const EditProfile = ({ user, editProfile }) => {
     if (password !== password2) {
       setAlert("Password do not match", "danger");
     } else {
-      if(image === ""){
-        editProfile(user._id,{ name, avatar:"https://aui.atlassian.com/aui/8.6/docs/images/avatar-person.svg", password});
-      handleReset();
-      }else{
-        editProfile(user._id,{ name, avatar:image, password});
-      handleReset();
+      if (image === "") {
+        editProfile(user._id, {
+          name,
+          avatar:
+            "https://aui.atlassian.com/aui/8.6/docs/images/avatar-person.svg",
+          password,
+        });
+        handleReset();
+      } else {
+        editProfile(user._id, { name, avatar: image, password });
+        handleReset();
       }
-      
     }
   };
 
@@ -77,50 +81,48 @@ const EditProfile = ({ user, editProfile }) => {
 
   const admin_links = (
     <div className='container-fluid px-lg-4'>
-              <div className='row'>
-                
-                  <div className='d-sm-flex align-items-center justify-content-between mb-4'>
-                    <h1 className='h3 mb-0 text-gray-800'></h1>
-                    <Link
-                      to='/admin-dashboard'
-                      className='d-sm-inline-block btn btn-sm btn-primary shadow-sm'>
-                     <i class="fas fa-arrow-alt-circle-left"></i> <span></span>
-                      Go back
-                    </Link>
-                  </div>
-              </div>
+      <div className='row'>
+        <div className='d-sm-flex align-items-center justify-content-between mb-4'>
+          <h1 className='h3 mb-0 text-gray-800'>{""}</h1>
+          <Link
+            to='/admin-dashboard'
+            className='d-sm-inline-block btn btn-sm btn-primary shadow-sm'
+          >
+            <i className='fas fa-arrow-alt-circle-left'></i> <span></span>
+            Go back
+          </Link>
+        </div>
+      </div>
     </div>
-  )
+  );
 
   const client_links = (
     <div className='container-fluid px-lg-4'>
-              <div className='row'>
-                
-                  <div className='d-sm-flex align-items-center justify-content-between mb-4'>
-                    <h1 className='h3 mb-0 text-gray-800'></h1>
-                    <Link
-                      to='/client-dashboard'
-                      className='d-sm-inline-block btn btn-sm btn-primary shadow-sm'>
-                     <i class="fas fa-arrow-alt-circle-left"></i> <span></span>
-                      Go back
-                    </Link>
-                  </div>
-              </div> 
+      <div className='row'>
+        <div className='d-sm-flex align-items-center justify-content-between mb-4'>
+          <h1 className='h3 mb-0 text-gray-800'>{""}</h1>
+          <Link
+            to='/client-dashboard'
+            className='d-sm-inline-block btn btn-sm btn-primary shadow-sm'
+          >
+            <i className='fas fa-arrow-alt-circle-left'></i> <span></span>
+            Go back
+          </Link>
+        </div>
+      </div>
     </div>
-  )
+  );
 
-  return(
+  return (
     <Fragment>
-    <Navbar/> <br/>
-    
-    <div> {user.role === "Admin" ? admin_links : client_links} </div>
-
-      <form class='form-basic' onSubmit={(e) => onSubmit(e)}>
-        <div class='form-title-row'>
+      <Navbar /> <br />
+      <div> {user.role === "Admin" ? admin_links : client_links} </div>
+      <form className='form-basic' onSubmit={(e) => onSubmit(e)}>
+        <div className='form-title-row'>
           <h1>Edit Profile</h1>
         </div>
         <Alert />
-        <div class='form-row'>
+        <div className='form-row'>
           <label>
             <span> Name </span>
             <input
@@ -133,14 +135,14 @@ const EditProfile = ({ user, editProfile }) => {
           </label>
         </div>
 
-        <div class='form-row'>
+        <div className='form-row'>
           <label>
             <span> Update Image </span>
             <input type='file' name='fileupload' onChange={uploadImage} />
           </label>
         </div>
 
-        <div class='form-row'>
+        <div className='form-row'>
           <label>
             <span>Password</span>
             <input
@@ -153,7 +155,7 @@ const EditProfile = ({ user, editProfile }) => {
           </label>
         </div>
 
-        <div class='form-row'>
+        <div className='form-row'>
           <label>
             <span>Confirm New Password</span>
             <input
@@ -164,7 +166,7 @@ const EditProfile = ({ user, editProfile }) => {
             />
           </label>
         </div>
-        <div class='form-row'>
+        <div className='form-row'>
           <button type='submit'>Update Profile</button>
         </div>
       </form>
