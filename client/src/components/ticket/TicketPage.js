@@ -118,7 +118,7 @@ const TicketPage = ({
                             </h3>
                             <div className='dl'>
                               <select
-                                className='custom-select'
+                                className="form-select form-select-sm" aria-label=".form-select-sm example"
                                 name='status'
                                 onChange={(e) => onChange(e)}
                               >

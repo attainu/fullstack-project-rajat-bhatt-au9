@@ -2,38 +2,35 @@ import React from "react";
 import "./footer.css";
 
 const Footer = () => (
-  <footer class='footer'>
-    <div class='container-fluid'>
-      <div class='row text-muted'>
-        <div class='col-6 text-left'>
-          <p class='mb-0'>
-            <a href='index.html' class='text-muted'>
+  <footer className='footer'>
+    <div className='container-fluid'>
+      <div className='row text-muted'>
+        <div className='col-6 text-left'>
+          <p className='mb-0'>
               <strong>CRM ticket System </strong>
-            </a>{" "}
+            {" "}
             &copy;
           </p>
         </div>
-        <div class='col-6 text-right'>
-          <ul class='list-inline'>
-            <li class='footer-item'>
-              <a class='text-muted' href='#'>
+        <div className='col-6 text-right'>
+          <ul className='list-inline'>
+            <li className='footer-item'>
                 Support
-              </a>
             </li>
-            <li class='footer-item'>
-              <a class='text-muted' href='#'>
+            <li className='footer-item'>
+              
                 Help Center
-              </a>
+              
             </li>
-            <li class='footer-item'>
-              <a class='text-muted' href='#'>
+            <li className='footer-item'>
+              
                 Privacy
-              </a>
+              
             </li>
-            <li class='footer-item'>
-              <a class='text-muted' href='#'>
+            <li className='footer-item'>
+              
                 Terms
-              </a>
+              
             </li>
           </ul>
         </div>
