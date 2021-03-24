@@ -94,6 +94,7 @@ const UserPage = ({ getUsers, user: { users, loading } }) => {
                     <div className='card'>
                       <div className='card-body'>
                         <div className='d-md-flex align-items-center'>
+                      
                           <div>
                             <h1 className='card-title'>List Of Users </h1>
                           </div>
@@ -125,6 +126,7 @@ const UserPage = ({ getUsers, user: { users, loading } }) => {
                               <th className='border-top-0'>
                                 User Created Date
                               </th>
+                              <th className='border-top-0'>Action</th>
                             </tr>
                           </thead>
                           <tbody>

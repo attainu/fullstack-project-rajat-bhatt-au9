@@ -128,4 +128,25 @@ router.put(
   }
 );
 
+//@route    DELETE api/users/deleteUser/:id
+//@description  delete users 
+//@access   Private
+
+router.delete("/deleteUser/:id", auth, async (req, res) => {
+  try {
+    const user = await User.findByIdAndRemove(req.params.id);
+  res.send("User deleted Successsfully")
+
+
+    
+
+  } catch (err) {
+    console.error(err.response);
+    if (err.kind === "ObjectId") {
+      return res.status(404).json({ msg: "User not Found" });
+    }
+    return res.status(500).send("Server Error");
+  }
+});
+
 module.exports = router;

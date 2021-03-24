@@ -1,7 +1,9 @@
 import {GET_USERS, 
 GET_USERS_ERROR,
 PUT_EDIT_PROFILE, 
-PUT_EDIT_PROFILE_ERROR} from '../actions/types'
+PUT_EDIT_PROFILE_ERROR,
+DELETE_USER,
+DELETE_USER_ERROR} from '../actions/types'
 
 
 const initialState = {
@@ -9,6 +11,8 @@ const initialState = {
     user: null,
     editprofiles: [],
     editprofile: null,
+    userdeleted: [],
+    userdelete: null,
     loading: true,
     error: {},
   };
@@ -37,6 +41,19 @@ const initialState = {
         loading: false,
       };
     case PUT_EDIT_PROFILE_ERROR:
+      return {
+        ...state,
+        error: payload,
+        loading: false,
+      };
+
+      case DELETE_USER:
+      return {
+        ...state,
+        users: state.users.filter((user) => user._id !== payload),
+        loading: false,
+      };
+    case DELETE_USER_ERROR:
       return {
         ...state,
         error: payload,

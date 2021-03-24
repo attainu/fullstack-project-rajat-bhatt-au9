@@ -19,3 +19,5 @@ export const GET_TICKET = "GET_TICKET";
 export const TICKET_ERROR = "TICKET_ERROR";
 export const ADD_REPLY = "ADD_REPLY";
 export const UPDATE_TICKET_STATUS = "UPDATE_TICKET_STATUS";
+export const DELETE_USER = "DELETE_USER";
+export const DELETE_USER_ERROR = "DELETE_USER_ERROR";

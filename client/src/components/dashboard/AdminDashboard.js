@@ -134,6 +134,7 @@ const AdminDashboard = ({
                               <th className='border-top-0'>Email</th>
                               <th className='border-top-0'>Role</th>
                               <th className='border-top-0'>User Created Date</th>
+                              <th className='border-top-0'>Action</th>
                             </tr>
                           </thead>
                           <tbody>{displayUsers}</tbody>

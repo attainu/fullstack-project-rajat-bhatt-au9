@@ -6,7 +6,7 @@ import Alert from "../layout/Alert";
 import { connect } from "react-redux";
 import { setAlert } from "../../actions/alert";
 import { createUser } from "../../actions/auth";
-import { useHistory, Link } from "react-router-dom";
+import {  Link } from "react-router-dom";
 
 import PropTypes from "prop-types";
 
@@ -20,7 +20,7 @@ const CreateUser = ({ user, setAlert, createUser }) => {
   });
 
   const { name, email, password, password2, role } = formData;
-  let history = useHistory();
+
   const onChange = (e) =>
     setFormData({
       ...formData,
@@ -34,7 +34,6 @@ const CreateUser = ({ user, setAlert, createUser }) => {
       passowrd2: "",
       role: "Admin",
     });
-    history.push("/user-page");
   };
   const onSubmit = async (e) => {
     e.preventDefault();

@@ -4,6 +4,8 @@ import {
   GET_USERS_ERROR,
   PUT_EDIT_PROFILE,
   PUT_EDIT_PROFILE_ERROR,
+  DELETE_USER,
+  DELETE_USER_ERROR
 } from "./types";
 
 import { setAlert } from "./alert";
@@ -62,4 +64,26 @@ export const editProfile = (userId, { name, avatar, password }) => async (
       type: PUT_EDIT_PROFILE_ERROR,
     });
   }
+};
+
+
+// Delete User
+export const deleteUser = (id) => async (dispatch) => {
+  if (window.confirm("Are You sure? Once User Deleted can't be undone ")) {
+
+  try {
+    await axios.delete(`http://localhost:5000/api/users/deleteUser/${id}`);
+    
+    dispatch({
+      type: DELETE_USER,
+      payload: id,
+    });
+    dispatch(setAlert("User Deleted Permanently", "success"));
+  } catch (err) {
+    dispatch({
+      type: DELETE_USER_ERROR,
+      
+    });
+  }
+}
 };

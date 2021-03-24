@@ -49,7 +49,7 @@ const Navbar = ({ auth: { isAuthenticated, loading, user }, logout }) => {
         </li>
         <li>
           <Link className='nav-link' to='/user-page'>
-            <span> Client </span>
+            <span> Users </span>
           </Link>
         </li>
 
