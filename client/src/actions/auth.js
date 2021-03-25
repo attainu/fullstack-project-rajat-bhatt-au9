@@ -8,6 +8,8 @@ import {
   LOGIN_FAIL,
   RESET_SUCCESS,
   RESET_FAIL,
+  NEW_PASS_SUCCESS,
+  NEW_PASS_FAIL,
   USER_LOADED,
   AUTH_ERROR,
   LOGOUT,
@@ -135,6 +137,45 @@ export const reset = (email) => async (dispatch) => {
 
     dispatch({
       type: RESET_FAIL,
+    });
+  }
+};
+
+//new password
+export const newPassword = (password, token) => async (dispatch) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+
+  const body = JSON.stringify({ password, token });
+
+  try {
+    const res = await axios.put(
+      "http://localhost:5000/api/auth/new-password",
+      body,
+      config
+    );
+    dispatch({
+      type: NEW_PASS_SUCCESS,
+      payload: res.data,
+    });
+    dispatch(
+      setAlert(
+        "Password has been changed. You can login with your updated password",
+        "success"
+      )
+    );
+  } catch (err) {
+    const errors = err.response.data.errors;
+
+    if (errors) {
+      errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
+    }
+
+    dispatch({
+      type: NEW_PASS_FAIL,
     });
   }
 };

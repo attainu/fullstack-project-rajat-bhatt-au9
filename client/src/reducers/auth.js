@@ -8,6 +8,8 @@ import {
   RESET_FAIL,
   LOGOUT,
   USER_LOADED,
+  NEW_PASS_SUCCESS,
+  NEW_PASS_FAIL,
 } from "../actions/types";
 
 const initialState = {
@@ -29,6 +31,7 @@ export default function (state = initialState, action) {
       };
     case CREATE_USER_SUCCESS:
     case RESET_SUCCESS:
+    case NEW_PASS_SUCCESS:
       return {
         ...state,
         ...payload,
@@ -46,6 +49,7 @@ export default function (state = initialState, action) {
 
     case CREATE_USER_FAIL:
     case RESET_FAIL:
+    case NEW_PASS_FAIL:
       return {
         ...state,
         loading: false,

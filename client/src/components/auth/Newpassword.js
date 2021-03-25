@@ -1,38 +1,49 @@
 import React, { Fragment, useState } from "react";
 
-import { Redirect, Link } from "react-router-dom";
+import { Redirect, useParams, useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
 import Footer from "../layout/Footer";
 import Alert from "../layout/Alert";
+import { setAlert } from "../../actions/alert";
+
 import "./login.css";
 import { connect } from "react-redux";
-import { login } from "../../actions/auth";
+import { newPassword } from "../../actions/auth";
 
-const Login = ({ login, isAuthenticated, user }) => {
+const Newpassword = ({ newPassword, setAlert }) => {
   const [formData, setFormData] = useState({
-    email: "",
     password: "",
+    password2: "",
   });
+  const history = useHistory();
 
-  const { email, password } = formData;
+  const { password, password2 } = formData;
+  const { token } = useParams();
 
   const onChange = (e) =>
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
+
   const onSubmit = async (e) => {
     e.preventDefault();
-    login(email, password);
+
+    if (password !== password2) {
+      setAlert("Password do not match", "danger");
+    } else {
+      newPassword(password, token);
+      history.push("/");
+    }
   };
 
   //Redirect if logged in
-  if (isAuthenticated) {
+  /* if (isAuthenticated) {
     if (user.role === "Admin") return <Redirect to='/admin-dashboard' />;
     else {
       return <Redirect to='/client-dashboard' />;
     }
-  }
+  } */
 
   return (
     <Fragment>
@@ -49,28 +60,12 @@ const Login = ({ login, isAuthenticated, user }) => {
                 </div>
                 <div className='card fat'>
                   <div className='card-body'>
-                    <h4 className='card-title'>Login</h4>
+                    <h4 className='card-title'>Reset Password</h4>
                     <Alert />
                     <form
                       className='my-login-validation'
                       onSubmit={(e) => onSubmit(e)}
                     >
-                      <div className='form-group mt-4'>
-                        <label htmlFor='email' className='mb-2'>
-                          E-Mail Address
-                        </label>
-                        <input
-                          id='email'
-                          type='email'
-                          className='form-control'
-                          name='email'
-                          value={email}
-                          onChange={(e) => onChange(e)}
-                          required
-                          autoFocus
-                        />
-                      </div>
-
                       <div className='form-group mt-4'>
                         <label htmlFor='password' className='mb-2'>
                           Password
@@ -88,15 +83,19 @@ const Login = ({ login, isAuthenticated, user }) => {
                       </div>
 
                       <div className='form-group mt-4'>
-                        <button
-                          type='submit'
-                          className='btn btn-primary btn-lg'
-                        >
-                          Login
-                        </button>
-                      </div>
-                      <div className='mt-4 text-center forgot-link'>
-                        Forgot Password? <Link to='/reset'>Click Here</Link>
+                        <label htmlFor='password' className='mb-2'>
+                          Confirm Password
+                        </label>
+
+                        <input
+                          id='password2'
+                          type='password'
+                          className='form-control'
+                          name='password2'
+                          value={password2}
+                          onChange={(e) => onChange(e)}
+                          minLength='6'
+                        />
                       </div>
                     </form>
                   </div>
@@ -111,14 +110,8 @@ const Login = ({ login, isAuthenticated, user }) => {
   );
 };
 
-Login.propTypes = {
-  login: PropTypes.func.isRequired,
-  isAuthenticated: PropTypes.bool,
+Newpassword.propTypes = {
+  newPassword: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  isAuthenticated: state.auth.isAuthenticated,
-  user: state.auth.user,
-});
-
-export default connect(mapStateToProps, { login })(Login);
+export default connect(null, { newPassword, setAlert })(Newpassword);

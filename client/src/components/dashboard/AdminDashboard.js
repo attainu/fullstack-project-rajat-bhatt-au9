@@ -9,6 +9,7 @@ import { getUsers } from "../../actions/user";
 import { getTickets } from "../../actions/ticket";
 import UserList from "../user/UserList";
 import ReactPaginate from "react-paginate";
+import Alert from "../layout/Alert";
 
 import PropTypes from "prop-types";
 
@@ -68,6 +69,7 @@ const AdminDashboard = ({
                   </div>
                 </div>
                 {/* vhjgjhd */}
+                <Alert />
                 <Profile user={user} />
                 <div className='col-md-12'>
                   <div className='row'>

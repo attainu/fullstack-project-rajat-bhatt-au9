@@ -1,52 +1,49 @@
-import React,{ useEffect } from "react";
+import React, { useEffect } from "react";
 import "./admindashboard.css";
 import Footer from "../layout/Footer";
 import Navbar from "../layout/Navbar";
 import Profile from "./Profile";
+import Alert from "../layout/Alert";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { getUsers } from "../../actions/user";
 import { getTickets } from "../../actions/ticket";
 
-const ClientDashboard = ({ 
+const ClientDashboard = ({
   getUsers,
   getTickets,
   users,
   tickets,
   user,
   isAuthenticated,
-
 }) => {
-
   useEffect(() => {
     getUsers();
     getTickets();
   }, [getUsers, getTickets]);
 
   const userNewTicket = Object.keys(
-    tickets.filter((ticket) => ticket.status === "New")
-    .filter((ticket) => ticket.user === user._id)
+    tickets
+      .filter((ticket) => ticket.status === "New")
+      .filter((ticket) => ticket.user === user._id)
   ).length;
 
   const userProgressTicket = Object.keys(
-    tickets.filter((ticket) => ticket.status === "In Progress")
-    .filter((ticket) => ticket.user === user._id)
+    tickets
+      .filter((ticket) => ticket.status === "In Progress")
+      .filter((ticket) => ticket.user === user._id)
   ).length;
 
-   const userAllTicket = Object.keys(
+  const userAllTicket = Object.keys(
     tickets.filter((ticket) => ticket.user === user._id)
   ).length;
-
-
 
   /* const numProgressnew = Object.keys(
   tickets.map((ticket) => {
   users.filter(user => ticket.user === user._id);
     
   })).length; */
-
- 
 
   return !isAuthenticated ? (
     <Redirect to='/' />
@@ -76,6 +73,7 @@ const ClientDashboard = ({
                 </div>
 
                 {/* vhjgjhd */}
+                <Alert />
                 <Profile user={user} />
                 <div className='col-md-12'>
                   <div className='row'>
@@ -98,7 +96,9 @@ const ClientDashboard = ({
                             In Progress Tickets Count
                           </h5>
 
-                          <h1 className='display-5 mt-1 mb-3'>{userProgressTicket}</h1>
+                          <h1 className='display-5 mt-1 mb-3'>
+                            {userProgressTicket}
+                          </h1>
                         </div>
                       </div>
                     </div>
@@ -107,12 +107,13 @@ const ClientDashboard = ({
                         <div className='card-body'>
                           <h5 className='card-title mb-4'>New Tickets Count</h5>
 
-                          <h1 className='display-5 mt-1 mb-3'>{userNewTicket}</h1>
+                          <h1 className='display-5 mt-1 mb-3'>
+                            {userNewTicket}
+                          </h1>
                         </div>
                       </div>
                     </div>
                   </div>
-                  
                 </div>
                 {/* vhjgjhd */}
               </div>
@@ -133,4 +134,6 @@ const mapStateToProps = (state) => ({
   users: state.user.users,
   tickets: state.ticket.tickets,
 });
-export default connect(mapStateToProps, { getUsers, getTickets })(ClientDashboard);
+export default connect(mapStateToProps, { getUsers, getTickets })(
+  ClientDashboard
+);

@@ -23,3 +23,5 @@ export const DELETE_USER = "DELETE_USER";
 export const DELETE_USER_ERROR = "DELETE_USER_ERROR";
 export const RESET_SUCCESS = "RESET_SUCCESS";
 export const RESET_FAIL = "RESET_FAIL";
+export const NEW_PASS_SUCCESS = "NEW_PASS_SUCCESS";
+export const NEW_PASS_FAIL = "NEW_PASS_FAIL";

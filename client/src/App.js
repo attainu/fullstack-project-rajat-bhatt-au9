@@ -9,6 +9,8 @@ import AdminDashboard from "./components/dashboard/AdminDashboard";
 import CreateUser from "./components/auth/CreateUser";
 import Login from "./components/auth/Login";
 import Reset from "./components/auth/Reset";
+import Newpassword from "./components/auth/Newpassword";
+
 import ClientDashboard from "./components/dashboard/ClientDashboard";
 import TicketPage from "./components/ticket/TicketPage";
 import PrivateRoute from "./components/routing/PrivateRoute";
@@ -37,6 +39,7 @@ const App = () => {
           <Switch>
             <Route exact path='/' component={Login} />
             <Route exact path='/reset' component={Reset} />
+            <Route exact path='/reset/:token' component={Newpassword} />
 
             <PrivateRoute path='/admin-dashboard' component={AdminDashboard} />
             <PrivateRoute exact path='/ticket' component={TicketPage} />

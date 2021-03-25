@@ -2,7 +2,9 @@ body.my-login-page {
   background-color: #f7f9fb;
   font-size: 14px;
 }
-
+.forgot-link a:hover {
+  color: red;
+}
 .my-login-page .brand {
   width: 90px;
   height: 90px;
