@@ -1,20 +1,21 @@
 import React, { Fragment, useState } from "react";
 
-import { Redirect, Link } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
 import Footer from "../layout/Footer";
 import Alert from "../layout/Alert";
 import "./login.css";
 import { connect } from "react-redux";
-import { login } from "../../actions/auth";
+import { reset } from "../../actions/auth";
 
-const Login = ({ login, isAuthenticated, user }) => {
+const Reset = ({ reset, isAuthenticated, user }) => {
+  const history = useHistory();
+
   const [formData, setFormData] = useState({
     email: "",
-    password: "",
   });
 
-  const { email, password } = formData;
+  const { email } = formData;
 
   const onChange = (e) =>
     setFormData({
@@ -23,7 +24,8 @@ const Login = ({ login, isAuthenticated, user }) => {
     });
   const onSubmit = async (e) => {
     e.preventDefault();
-    login(email, password);
+    reset(email);
+    history.push("/");
   };
 
   //Redirect if logged in
@@ -42,15 +44,17 @@ const Login = ({ login, isAuthenticated, user }) => {
             <div className='row justify-content-md-center h-100'>
               <div className='card-wrapper'>
                 <div className='brand'>
-                  <img
+                  {/* <img
                     src='https://cdn3.iconfinder.com/data/icons/e-commerce-and-online-shopping/64/__account_male-512.png'
                     alt='logo'
-                  />
+                  /> */}
                 </div>
+                <Alert />
                 <div className='card fat'>
                   <div className='card-body'>
-                    <h4 className='card-title'>Login</h4>
-                    <Alert />
+                    <h4 className='card-title'>
+                      Enter your email to reset your password
+                    </h4>
                     <form
                       className='my-login-validation'
                       onSubmit={(e) => onSubmit(e)}
@@ -70,33 +74,13 @@ const Login = ({ login, isAuthenticated, user }) => {
                           autoFocus
                         />
                       </div>
-
-                      <div className='form-group mt-4'>
-                        <label htmlFor='password' className='mb-2'>
-                          Password
-                        </label>
-
-                        <input
-                          id='password'
-                          type='password'
-                          className='form-control'
-                          name='password'
-                          value={password}
-                          onChange={(e) => onChange(e)}
-                          minLength='6'
-                        />
-                      </div>
-
                       <div className='form-group mt-4'>
                         <button
                           type='submit'
                           className='btn btn-primary btn-lg'
                         >
-                          Login
+                          Submit
                         </button>
-                      </div>
-                      <div className='mt-4 text-center'>
-                        Forgot Password? <Link to='/reset'>Click Here</Link>
                       </div>
                     </form>
                   </div>
@@ -111,8 +95,8 @@ const Login = ({ login, isAuthenticated, user }) => {
   );
 };
 
-Login.propTypes = {
-  login: PropTypes.func.isRequired,
+Reset.propTypes = {
+  reset: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.bool,
 };
 
@@ -121,4 +105,4 @@ const mapStateToProps = (state) => ({
   user: state.auth.user,
 });
 
-export default connect(mapStateToProps, { login })(Login);
+export default connect(mapStateToProps, { reset })(Reset);

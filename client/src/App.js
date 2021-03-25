@@ -8,6 +8,7 @@ import store from "./store";
 import AdminDashboard from "./components/dashboard/AdminDashboard";
 import CreateUser from "./components/auth/CreateUser";
 import Login from "./components/auth/Login";
+import Reset from "./components/auth/Reset";
 import ClientDashboard from "./components/dashboard/ClientDashboard";
 import TicketPage from "./components/ticket/TicketPage";
 import PrivateRoute from "./components/routing/PrivateRoute";
@@ -35,6 +36,7 @@ const App = () => {
         <Fragment>
           <Switch>
             <Route exact path='/' component={Login} />
+            <Route exact path='/reset' component={Reset} />
 
             <PrivateRoute path='/admin-dashboard' component={AdminDashboard} />
             <PrivateRoute exact path='/ticket' component={TicketPage} />

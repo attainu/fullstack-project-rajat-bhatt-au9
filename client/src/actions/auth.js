@@ -6,6 +6,8 @@ import {
   CREATE_USER_FAIL,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
+  RESET_SUCCESS,
+  RESET_FAIL,
   USER_LOADED,
   AUTH_ERROR,
   LOGOUT,
@@ -98,6 +100,41 @@ export const login = (email, password) => async (dispatch) => {
 
     dispatch({
       type: LOGIN_FAIL,
+    });
+  }
+};
+
+//Reset Password
+export const reset = (email) => async (dispatch) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+
+  const body = JSON.stringify({ email });
+
+  try {
+    const res = await axios.post(
+      "http://localhost:5000/api/auth/reset-password",
+      body,
+      config
+    );
+    dispatch({
+      type: RESET_SUCCESS,
+      payload: res.data,
+    });
+
+    dispatch(setAlert("Check your email to reset password", "success"));
+  } catch (err) {
+    const errors = err.response.data.errors;
+
+    if (errors) {
+      errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
+    }
+
+    dispatch({
+      type: RESET_FAIL,
     });
   }
 };

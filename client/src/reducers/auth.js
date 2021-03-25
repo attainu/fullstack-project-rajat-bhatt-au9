@@ -4,6 +4,8 @@ import {
   AUTH_ERROR,
   LOGIN_FAIL,
   LOGIN_SUCCESS,
+  RESET_SUCCESS,
+  RESET_FAIL,
   LOGOUT,
   USER_LOADED,
 } from "../actions/types";
@@ -26,6 +28,7 @@ export default function (state = initialState, action) {
         user: payload,
       };
     case CREATE_USER_SUCCESS:
+    case RESET_SUCCESS:
       return {
         ...state,
         ...payload,
@@ -42,6 +45,7 @@ export default function (state = initialState, action) {
       };
 
     case CREATE_USER_FAIL:
+    case RESET_FAIL:
       return {
         ...state,
         loading: false,
