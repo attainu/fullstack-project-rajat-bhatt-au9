@@ -21,9 +21,9 @@ const TicketPage = ({
   useEffect(() => {
     getTickets();
     getUsers();
-  }, [getTickets,getUsers]);
+  }, [getTickets, getUsers]);
 
-   const userAllTicket = Object.keys(
+  const userAllTicket = Object.keys(
     tickets.filter((ticket) => ticket.user === user._id)
   ).length;
 
@@ -111,10 +111,13 @@ const TicketPage = ({
                             Total Tickets Count{" "}
                           </h5>
                           <h1 className='display-5 mt-1 mb-3'>
-                           {user.role === "Admin" ? <div> {Object.keys(tickets).length} </div> : <div> {userAllTicket} </div>}
-                          
+                            {user.role === "Admin" ? (
+                              <div> {Object.keys(tickets).length} </div>
+                            ) : (
+                              <div> {userAllTicket} </div>
+                            )}
                           </h1>
-                          
+
                           <div className='mb-1'></div>
                         </div>
                       </div>
@@ -134,7 +137,8 @@ const TicketPage = ({
                             </h3>
                             <div className='dl'>
                               <select
-                                className="form-select form-select-sm" aria-label=".form-select-sm example"
+                                className='form-select form-select-sm'
+                                aria-label='.form-select-sm example'
                                 name='status'
                                 onChange={(e) => onChange(e)}
                               >
@@ -164,17 +168,7 @@ const TicketPage = ({
                           </thead>
                           <tbody>
                             {user.role === "Client"
-                              ? /* tickets
-                                  .filter(
-                                    (ticket) => ticket.email === user.email
-                                  )
-                                  .map((filteredTicket) => (
-                                    <TicketList
-                                      key={filteredTicket.id}
-                                      ticket={filteredTicket}
-                                    />
-                                  )) */
-                                (function () {
+                              ? (function () {
                                   if (allTicket) {
                                     return tickets
                                       .filter(
@@ -330,4 +324,4 @@ const mapStateToProps = (state) => ({
   user: state.auth.user,
 });
 
-export default connect(mapStateToProps, { getUsers,getTickets })(TicketPage);
+export default connect(mapStateToProps, { getUsers, getTickets })(TicketPage);

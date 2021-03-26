@@ -39,12 +39,6 @@ const ClientDashboard = ({
     tickets.filter((ticket) => ticket.user === user._id)
   ).length;
 
-  /* const numProgressnew = Object.keys(
-  tickets.map((ticket) => {
-  users.filter(user => ticket.user === user._id);
-    
-  })).length; */
-
   return !isAuthenticated ? (
     <Redirect to='/' />
   ) : (

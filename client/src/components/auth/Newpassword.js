@@ -37,14 +37,6 @@ const Newpassword = ({ newPassword, setAlert }) => {
     }
   };
 
-  //Redirect if logged in
-  /* if (isAuthenticated) {
-    if (user.role === "Admin") return <Redirect to='/admin-dashboard' />;
-    else {
-      return <Redirect to='/client-dashboard' />;
-    }
-  } */
-
   return (
     <Fragment>
       <div className='my-login-page'>
