@@ -23,8 +23,11 @@ const ListConversation = ({
           <div className='comment_details'>
             <ul>
               <li>
-                <i className='fa fa-clock-o'></i>
-                <Moment date={date} format='hh:mm:ss' durationFromNow />
+                <i className='fa fa-clock-o'></i>{" "}
+                <Moment fromNow ago>
+                  {date}
+                </Moment>{" "}
+                ago
               </li>
               <li>
                 <i className='fa fa-calendar'></i>{" "}
