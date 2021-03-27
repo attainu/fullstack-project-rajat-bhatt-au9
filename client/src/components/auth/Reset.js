@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from "react";
 
-import { Redirect, useHistory } from "react-router-dom";
+import { Redirect, Link, useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
 import Footer from "../layout/Footer";
 import Alert from "../layout/Alert";
@@ -81,6 +81,9 @@ const Reset = ({ reset, isAuthenticated, user }) => {
                         >
                           Submit
                         </button>
+                      </div>
+                      <div className='mt-4 text-center forgot-link'>
+                        want to go back? <Link to='/'>Go Back</Link>
                       </div>
                     </form>
                   </div>

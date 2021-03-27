@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from "react";
 
-import { useParams, useHistory } from "react-router-dom";
+import { Link, useParams, useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
 import Footer from "../layout/Footer";
 import Alert from "../layout/Alert";
@@ -97,6 +97,9 @@ const Newpassword = ({ newPassword, setAlert }) => {
                         >
                           Reset Password
                         </button>
+                      </div>
+                      <div className='mt-4 text-center forgot-link'>
+                        Want to go back? <Link to='/'>Go Back</Link>
                       </div>
                     </form>
                   </div>
