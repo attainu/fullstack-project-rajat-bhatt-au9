@@ -83,7 +83,7 @@ const Reset = ({ reset, isAuthenticated, user }) => {
                         </button>
                       </div>
                       <div className='mt-4 text-center forgot-link'>
-                        want to go back? <Link to='/'>Go Back</Link>
+                        Want to go back? <Link to='/'>Go Back</Link>
                       </div>
                     </form>
                   </div>
