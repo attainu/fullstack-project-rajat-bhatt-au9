@@ -28,10 +28,10 @@ Let's take a tour of our project.
 
 ## Frontend Packages Used:
 
-- axios (For calling api endpoints)
-- moment (for date-time formatting)
-- redux (For state management)
-- redux-thunk (for date-time formatting)
+- axios 
+- moment 
+- redux 
+- redux-thunk
 - react-paginate 
 
 ## Backend Packages Used:
