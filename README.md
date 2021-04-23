@@ -12,10 +12,10 @@ Countibutors: Rajat Bhatt & Shubham
 - ### Login Credentials: 
 
 - #### Login as Admin: 
-       email - rajatbhatt500@gmail.com
+       email - testadmin@gmail.com
        pass- 123456
 - #### Login as Client: 
-       email - rajat.bhatt300@gmail.com
+       email - testclient@gmail.com
        pass- 123456
 
  
